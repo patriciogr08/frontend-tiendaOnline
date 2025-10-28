@@ -1,0 +1,55 @@
+<ion-content class="ion-padding">
+    <!-- Pull-to-refresh -->
+    <ion-refresher slot="fixed" (ionRefresh)="reload($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <!-- Filtros -->
+    <ion-item lines="none" class="toolbar-filters">
+        <ion-searchbar placeholder="Buscar..." (ionInput)="onSearch($event)"></ion-searchbar>
+
+        <ion-select interface="popover" placeholder="Tipo" [value]="tipo" (ionChange)="onChangeTipo($event)">
+        <ion-select-option [value]="null">Todos</ion-select-option>
+        <ion-select-option *ngFor="let t of tipos" [value]="t.id">{{ t.nombre }}</ion-select-option>
+        </ion-select>
+
+        <ion-toggle (ionChange)="onChangePublicado($event)">Publicados</ion-toggle>
+    </ion-item>
+
+    <!-- Lista -->
+    <ion-list>
+        <ion-item *ngIf="loading && items.length===0">
+        <ion-spinner slot="start"></ion-spinner>
+        <ion-label>Cargando...</ion-label>
+        </ion-item>
+
+        <ion-item *ngFor="let p of items">
+        <ion-label>
+            <h2>{{ p.nombre }}</h2>
+            <p>{{ p.tipo_nombre || 'Sin tipo' }} · {{ p.precio | currency:'USD' }}</p>
+        </ion-label>
+        <ion-button slot="end" fill="clear" (click)="openEdit(p)">
+            <ion-icon name="create-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+        <ion-button slot="end" fill="clear" color="danger" (click)="remove(p)">
+            <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+        </ion-item>
+
+        <ion-item *ngIf="!loading && items.length === 0">
+        <ion-label>No hay productos</ion-label>
+        </ion-item>
+    </ion-list>
+
+    <!-- Infinite scroll -->
+    <ion-infinite-scroll (ionInfinite)="loadMore($event)" threshold="100px" *ngIf="hasMore">
+        <ion-infinite-scroll-content loadingSpinner="bubbles" loadingText="Cargando más..."></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
+
+    <!-- FAB -->
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button (click)="openCreate()">
+        <ion-icon name="add-outline"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>

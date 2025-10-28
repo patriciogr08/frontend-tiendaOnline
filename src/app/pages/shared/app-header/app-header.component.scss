@@ -1,7 +1,4 @@
-ion-header, ion-toolbar {
-    position: relative;
-    z-index: 1000;
-}
-ion-buttons, ion-button {
-    pointer-events: auto;
-}
+:host { display: block; }
+ion-toolbar { --min-height: var(--app-header-h, 56px); }
+ion-title { font-weight: 600; }
+.user-chip { margin-right: 8px; }

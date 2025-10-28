@@ -1,0 +1,11 @@
+.toolbar-filters {
+    --padding-start: 0;
+    display: grid;
+    grid-template-columns: 1fr auto auto;
+    gap: 8px;
+    align-items: center;
+    margin-bottom: 6px;
+
+    ion-searchbar { --box-shadow: none; }
+}
+ion-item { --inner-padding-end: 6px; }

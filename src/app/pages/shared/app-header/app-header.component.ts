@@ -9,11 +9,11 @@ import { addIcons } from 'ionicons';
 import { logOutOutline } from 'ionicons/icons';
 
 @Component({
-  standalone: true,
-  selector: 'app-header',
-  templateUrl: './app-header.component.html',
-  styleUrls: ['./app-header.component.scss'],
-  imports: [CommonModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonChip, IonLabel]
+    standalone: true,
+    selector: 'app-header',
+    templateUrl: './app-header.component.html',
+    styleUrls: ['./app-header.component.scss'],
+    imports: [CommonModule, IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon, IonChip, IonLabel]
 })
 export class AppHeaderComponent {
     @Input() title = 'Tienda Online';
@@ -25,7 +25,6 @@ export class AppHeaderComponent {
     }
 
     logout() {
-        console.log('[HEADER] click logout'); // <-- ver en consola
         this.auth.logout().subscribe({
             complete: () => this.router.navigateByUrl('/login', { replaceUrl: true }),
             error:    () => this.router.navigateByUrl('/login', { replaceUrl: true })

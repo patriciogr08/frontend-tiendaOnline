@@ -3,14 +3,14 @@
         <ion-title>{{ title }}</ion-title>
 
         <ion-buttons slot="end">
-            <ion-chip *ngIf="user?.rol" style="margin-right:8px;">
-                <ion-label>{{ user.nombre_completo }}</ion-label>
-            </ion-chip>
+        <ion-chip class="user-chip" *ngIf="user?.nombre_completo">
+            <ion-label>{{ user.nombre_completo }}</ion-label>
+        </ion-chip>
 
-            <ion-button type="button" (click)="logout()" *ngIf="showLogout" aria-label="Cerrar sesión">
-                <ion-icon name="log-out-outline" slot="start"></ion-icon>
-                Salir
-            </ion-button>
+        <ion-button type="button" (click)="logout()" *ngIf="showLogout" aria-label="Cerrar sesión">
+            <ion-icon name="log-out-outline" slot="start"></ion-icon>
+            Salir
+        </ion-button>
         </ion-buttons>
     </ion-toolbar>
 </ion-header>

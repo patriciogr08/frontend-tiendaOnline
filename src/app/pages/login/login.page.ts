@@ -60,11 +60,13 @@ async submit() {
       const t = await this.toast.create({ message: '¡Bienvenido!', duration: 1500, color: 'success' });
       await t.present();
 
-      const rol = res?.user?.rol ?? this.auth.currentUser()?.rol; // respaldo por si acaso
+      const rol = res?.user?.rol ?? this.auth.currentUser()?.rol;
       if (rol === 'ADMIN') {
-        this.router.navigateByUrl('/admin', { replaceUrl: true }); // Tabs admin
+        this.router.navigateByUrl('/admin', { replaceUrl: true });
+      } else if (rol === 'REPARTIDOR') {
+        this.router.navigateByUrl('/courier/orders', { replaceUrl: true });
       } else {
-        this.router.navigateByUrl('/home', { replaceUrl: true });
+        this.router.navigateByUrl('/shop', { replaceUrl: true });
       }
     },
     error: async (err) => {

@@ -1,0 +1,12 @@
+<ion-item lines="full">
+    <ion-label>{{ label }}</ion-label>
+    <input type="file" [accept]="accept" (change)="onInput($event)" style="display:none" #inp>
+    <ion-button fill="clear" (click)="inp.click()">
+        <ion-icon name="image-outline" slot="start"></ion-icon>Seleccionar
+    </ion-button>
+    <ion-button fill="clear" color="medium" (click)="clear()" *ngIf="previewUrl">
+        <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+    </ion-button>
+</ion-item>
+
+<ion-img *ngIf="previewUrl" [src]="previewUrl" class="preview"></ion-img>

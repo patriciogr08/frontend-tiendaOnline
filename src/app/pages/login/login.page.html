@@ -1,0 +1,75 @@
+<!-- src/app/pages/login/login.page.html -->
+<ion-content class="login-bg" [fullscreen]="true">
+  <div class="login-wrapper">
+    <!-- Logo / Marca -->
+    <div class="brand">
+      <!-- Usa tu logo local si tienes: assets/img/logo.svg -->
+      <ion-img src="assets/img/logo.svg" alt="Logo" class="brand__img"></ion-img>
+      <h1 class="brand__title">Tienda Online</h1>
+      <p class="brand__subtitle">Bienvenido de vuelta</p>
+    </div>
+
+    <!-- Card de acceso -->
+    <ion-card class="login-card">
+      <ion-card-content>
+        <form [formGroup]="form" (ngSubmit)="submit()" novalidate>
+          <ion-list lines="full" class="inputs">
+            <ion-item class="input-item" [class.invalid]="f.correo.touched && f.correo.invalid">
+              <ion-input
+                type="email"
+                label="Correo"
+                labelPlacement="floating"
+                inputmode="email"
+                autocomplete="email"
+                formControlName="correo">
+              </ion-input>
+            </ion-item>
+            <ion-text class="error" *ngIf="f.correo.touched && f.correo.errors?.['required']">
+              El correo es obligatorio.
+            </ion-text>
+            <ion-text class="error" *ngIf="f.correo.touched && f.correo.errors?.['email']">
+              Ingresa un correo válido.
+            </ion-text>
+
+            <ion-item class="input-item" [class.invalid]="f.password.touched && f.password.invalid">
+              <ion-input
+                [type]="showPassword ? 'text' : 'password'"
+                label="Contraseña"
+                labelPlacement="floating"
+                autocomplete="current-password"
+                formControlName="password">
+              </ion-input>
+              <ion-button fill="clear" size="small" slot="end" (click)="togglePassword()" type="button" aria-label="Mostrar/Ocultar contraseña">
+                <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+              </ion-button>
+            </ion-item>
+            <ion-text class="error" *ngIf="f.password.touched && f.password.errors?.['required']">
+              La contraseña es obligatoria.
+            </ion-text>
+            <ion-text class="error" *ngIf="f.password.touched && f.password.errors?.['minlength']">
+              Debe tener al menos 6 caracteres.
+            </ion-text>
+          </ion-list>
+
+          <ion-button
+            expand="block"
+            size="large"
+            class="submit-btn"
+            type="submit"
+            [disabled]="form.invalid">
+            <ion-icon name="log-in-outline" slot="start"></ion-icon>
+            Ingresar
+          </ion-button>
+
+          <div class="aux-actions">
+            <a routerLink="/forgot" class="link">¿Olvidaste tu contraseña?</a>
+          </div>
+        </form>
+      </ion-card-content>
+    </ion-card>
+
+    <footer class="login-footer">
+      <span>© {{ anio }} Tienda Online</span>
+    </footer>
+  </div>
+</ion-content>

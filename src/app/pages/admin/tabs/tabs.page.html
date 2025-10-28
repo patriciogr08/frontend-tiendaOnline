@@ -1,0 +1,37 @@
+<div class="admin-shell">
+    <app-header [title]="title"></app-header>
+
+    <div class="tabs-wrap with-global-header">
+        <ion-tabs>
+        <ion-router-outlet></ion-router-outlet>
+
+        <ion-tab-bar slot="bottom">
+            <ion-tab-button tab="dashboard" [routerLink]="['/admin/dashboard']">
+            <ion-icon name="speedometer-outline"></ion-icon>
+            <ion-label>Dashboard</ion-label>
+            </ion-tab-button>
+
+            <ion-tab-button tab="pedidos" [routerLink]="['/admin/pedidos']">
+            <ion-icon name="bag-handle-outline"></ion-icon>
+            <ion-label>Pedidos</ion-label>
+            <ion-badge *ngIf="pendingCount > 0">{{ pendingCount }}</ion-badge>
+            </ion-tab-button>
+
+            <ion-tab-button tab="productos" [routerLink]="['/admin/productos']">
+            <ion-icon name="cube-outline"></ion-icon>
+            <ion-label>Productos</ion-label>
+            </ion-tab-button>
+
+            <ion-tab-button tab="usuarios" [routerLink]="['/admin/usuarios']">
+            <ion-icon name="people-outline"></ion-icon>
+            <ion-label>Usuarios</ion-label>
+            </ion-tab-button>
+
+            <ion-tab-button tab="perfil" [routerLink]="['/admin/perfil']">
+            <ion-icon name="person-circle-outline"></ion-icon>
+            <ion-label>Perfil</ion-label>
+            </ion-tab-button>
+        </ion-tab-bar>
+        </ion-tabs>
+    </div>
+</div>

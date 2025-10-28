@@ -1,0 +1,9 @@
+app-header, ion-header, ion-toolbar {
+    position: relative;
+    z-index: 10;            /* por encima del contenido */
+}
+
+ion-content {
+    position: relative;
+    z-index: 1;             /* debajo del header */
+}

@@ -1,0 +1,7 @@
+ion-header, ion-toolbar {
+    position: relative;
+    z-index: 1000;
+}
+ion-buttons, ion-button {
+    pointer-events: auto;
+}

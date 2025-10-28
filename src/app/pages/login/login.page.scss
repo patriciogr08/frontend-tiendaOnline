@@ -1,0 +1,126 @@
+/* Fondo con gradiente suave */
+.login-bg {
+  --background: linear-gradient(135deg, #0ea5e9 0%, #22c55e 100%); /* azul -> verde */
+}
+
+/* Contenedor centrado */
+.login-wrapper {
+    min-height: 100%;
+    padding: 24px;
+    display: grid;
+    place-items: center;
+    grid-template-rows: auto 1fr auto;
+    gap: 16px;
+}
+
+/* Marca / logo */
+.brand {
+    text-align: center;
+    margin-top: 24px;
+
+    &__img {
+        width: 72px;
+        height: 72px;
+        margin: 0 auto 8px;
+        filter: drop-shadow(0 6px 14px rgba(0,0,0,.25));
+    }
+
+    &__title {
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: .3px;
+        margin: 0;
+    }
+
+    &__subtitle {
+        margin: 4px 0 0;
+        color: rgba(255, 255, 255, .9);
+        font-size: 0.95rem;
+    }
+}
+
+/* Card */
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow:
+        0 10px 25px rgba(0,0,0,.18),
+        0 4px 10px rgba(0,0,0,.08);
+    backdrop-filter: blur(6px);
+}
+
+/* Inputs */
+.inputs {
+    margin-top: 6px;
+}
+
+.input-item {
+    --background: #fff;
+    --border-color: transparent;
+    --border-radius: 12px;
+    --inner-padding-end: 8px;
+    margin-bottom: 8px;
+    border-radius: 12px;
+    box-shadow: 0 2px 10px rgba(16, 24, 40, .06);
+
+    &.invalid {
+        box-shadow: 0 0 0 2px rgba(239, 68, 68, .35);
+    }
+
+    ion-input::part(native) {
+        padding-top: 14px;
+        padding-bottom: 14px;
+        font-size: 15px;
+    }
+}
+
+/* Botón primario */
+.submit-btn {
+    margin-top: 16px;
+    --border-radius: 12px;
+    --box-shadow: 0 6px 16px rgba(34, 197, 94, .45);
+}
+
+/* Textos de error */
+.error {
+    display: block;
+    margin: 4px 12px 10px;
+    color: #ef4444; /* rojo-500 */
+    font-size: 0.85rem;
+}
+
+/* Acciones auxiliares */
+.aux-actions {
+    text-align: center;
+    margin-top: 10px;
+
+    .link {
+        color: var(--ion-color-primary-contrast, #0ea5e9);
+        text-decoration: none;
+        font-weight: 500;
+        opacity: .9;
+    }
+}
+
+/* Footer */
+.login-footer {
+    text-align: center;
+    color: rgba(255,255,255,.9);
+    font-size: 0.85rem;
+    margin-bottom: 8px;
+}
+
+/* Modo oscuro soportado automáticamente con variables de Ionic.
+   Si quieres acentuar, puedes añadir: */
+:host-context(body.dark) {
+    .login-card {
+        --background: rgba(18, 18, 18, 0.75);
+        color: #f3f4f6;
+    }
+    .input-item {
+        --background: rgba(30, 30, 30, 0.95);
+        box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+}

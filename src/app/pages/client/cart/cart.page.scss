@@ -1,0 +1,23 @@
+.grow { 
+    flex: 1; 
+}
+
+.qty { 
+    width: 2rem; 
+    text-align: center; 
+    display: inline-block; 
+}
+
+.footer-row {
+    width: 100%; 
+    display: flex; 
+    align-items: center; 
+    justify-content: space-between;
+    .total { 
+        font-size: 16px; 
+    }      
+    .actions { 
+        display: flex; 
+        gap: 8px; 
+    }
+}

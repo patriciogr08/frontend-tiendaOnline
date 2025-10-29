@@ -1,9 +1,2 @@
-app-header, ion-header, ion-toolbar {
-    position: relative;
-    z-index: 10;            /* por encima del contenido */
-}
-
-ion-content {
-    position: relative;
-    z-index: 1;             /* debajo del header */
-}
+.actions { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 8px; }
+.note { display:block; margin-top: 12px; color: var(--ion-color-medium); }

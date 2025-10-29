@@ -18,7 +18,7 @@ import { ImagePickerComponent } from '../../shared/image-picker/image-picker.com
   imports: [
     CommonModule, ReactiveFormsModule,
     IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent,
-    IonList, IonItem, IonInput, IonLabel, IonSelect, IonSelectOption, IonToggle,
+    IonList, IonItem, IonInput, IonSelect, IonSelectOption, IonToggle,
     ImagePickerComponent
   ]
 })
@@ -56,16 +56,16 @@ export class ProductFormModal implements OnInit {
         this.tiposSvc.list().subscribe(t => this.tipos = t || []);
 
         if (this.mode === 'edit' && this.model) {
-        this.form.patchValue({
-            tipo_producto_id: this.model.tipo_producto_id ?? null,
-            nombre: this.model.nombre ?? '',
-            descripcion: this.model.descripcion ?? '',
-            precio: this.model.precio ?? 0,
-            publicado: !!this.model.publicado,
-            tiene_descuento: !!this.model.tiene_descuento,
-            descuento: this.model.descuento ?? 0,
-            porcentaje: this.model.porcentaje ?? 0,
-        });
+            this.form.patchValue({
+                tipo_producto_id: this.model.tipo_producto_id ?? null,
+                nombre: this.model.nombre ?? '',
+                descripcion: this.model.descripcion ?? '',
+                precio: this.model.precio ?? 0,
+                publicado: !!this.model.publicado,
+                tiene_descuento: !!this.model.tiene_descuento,
+                descuento: this.model.descuento ?? 0,
+                porcentaje: this.model.porcentaje ?? 0,
+            });
         }
     }
 
@@ -74,12 +74,12 @@ export class ProductFormModal implements OnInit {
     private async validateImage(): Promise<boolean> {
         if (!this.selectedFile) return true; // imagen opcional
         if (!this.allowedTypes.includes(this.selectedFile.type)) {
-        (await this.toast.create({ message: 'Formato inválido (jpg, png, webp, gif)', duration: 2000, color: 'warning' })).present();
-        return false;
+            (await this.toast.create({ message: 'Formato inválido (jpg, png, webp, gif)', duration: 2000, color: 'warning' })).present();
+            return false;
         }
         if (this.selectedFile.size > this.maxImageMB * 1024 * 1024) {
-        (await this.toast.create({ message: `Imagen > ${this.maxImageMB}MB`, duration: 2000, color: 'warning' })).present();
-        return false;
+            (await this.toast.create({ message: `Imagen > ${this.maxImageMB}MB`, duration: 2000, color: 'warning' })).present();
+            return false;
         }
         return true;
     }
@@ -91,9 +91,9 @@ export class ProductFormModal implements OnInit {
         if (!(await this.validateImage())) return;
 
         const dto = {
-        ...this.form.value,
-        publicado: this.form.value.publicado ? 1 : 0,
-        tiene_descuento: this.form.value.tiene_descuento ? 1 : 0
+            ...this.form.value,
+            publicado: this.form.value.publicado ? 1 : 0,
+            tiene_descuento: this.form.value.tiene_descuento ? 1 : 0
         };
 
         const req$ = this.mode === 'create'

@@ -25,18 +25,16 @@ export class AdminTabsPage {
     constructor(private router: Router) {
         addIcons({ speedometerOutline, bagHandleOutline, peopleOutline, cubeOutline, personCircleOutline });
 
-        this.router.events.pipe(
-        filter(e => e instanceof NavigationEnd)
-        ).subscribe(() => {
-        // Baja por el árbol hasta la ruta más profunda
-        let r = this.router.routerState.root;
-        let t = 'Admin';
-        while (r.firstChild) {
-            r = r.firstChild;
-            const maybe = r.snapshot.data?.['title'];
-            if (maybe) t = maybe; // toma el último title definido
-        }
-        this.title = t;
+        this.router.events.pipe( filter(e => e instanceof NavigationEnd)).subscribe(() => {
+            // Baja por el árbol hasta la ruta más profunda
+            let r = this.router.routerState.root;
+            let t = 'Admin';
+            while (r.firstChild) {
+                r = r.firstChild;
+                const maybe = r.snapshot.data?.['title'];
+                if (maybe) t = maybe; // toma el último title definido
+            }
+            this.title = t;
         });
     }
 }

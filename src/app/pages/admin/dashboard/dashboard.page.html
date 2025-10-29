@@ -1,4 +1,25 @@
 <ion-content class="ion-padding">
-    <h2>Resumen</h2>
-    <p>Aquí colocarás métricas clave (ventas, pedidos pendientes, stock bajo, etc.).</p>
+    <ion-card>
+        <ion-card-header>
+        <ion-card-title>Shells de prueba</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+        <p>Puedes navegar a los shells de Cliente y Repartidor con tu usuario actual.</p>
+        <div class="actions">
+            <ion-button (click)="goClient()">
+            <ion-icon name="people-outline" slot="start"></ion-icon>
+            Ver Cliente
+            </ion-button>
+
+            <ion-button color="secondary" (click)="goCourier()">
+            <ion-icon name="person-outline" slot="start"></ion-icon>
+            Ver Repartidor
+            </ion-button>
+        </div>
+        <small class="note">
+            Nota: asegúrate de que en <code>app.routes.ts</code> la ruta <b>/courier</b> permita también <b>ADMIN</b> durante desarrollo:
+        </small>
+        </ion-card-content>
+    </ion-card>
 </ion-content>

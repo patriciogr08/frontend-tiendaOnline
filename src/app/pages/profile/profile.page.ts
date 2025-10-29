@@ -13,7 +13,7 @@ import { ToastController } from '@ionic/angular';
     selector: 'app-profile',
     templateUrl: './profile.page.html',
     styleUrls: ['./profile.page.scss'],
-    imports: [CommonModule, IonContent, IonList, IonItem, IonLabel, IonButton, IonIcon, IonInput]
+    imports: [CommonModule, IonContent, IonList, IonItem, IonLabel, IonButton, IonIcon]
 })
 export class ProfilePage {
     user = this.auth.currentUser();

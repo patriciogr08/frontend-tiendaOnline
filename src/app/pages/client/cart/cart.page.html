@@ -1,33 +1,41 @@
 <ion-content class="ion-padding">
   <ion-list>
-    <ion-item *ngIf="loading">
-      <ion-spinner slot="start"></ion-spinner>
-      <ion-label>Cargando carrito...</ion-label>
-    </ion-item>
+    @if(loading){
+      <ion-item>
+        <ion-spinner slot="start"></ion-spinner>
+        <ion-label>Cargando carrito...</ion-label>
+      </ion-item>
+    }
+    
+    @for (it of cart.state().items; track it.id) {
+      <ion-item>
+        <ion-img 
+          [src]="it.foto_url || 'assets/img/placeholder-product.jpg'" 
+          style="width:64px;height:64px;border-radius:8px;margin-right:12px;">
+        </ion-img>
+        <ion-label class="grow">
+          <h3>{{ it.nombre }}</h3>
+          <p>{{ it.precio_unitario | currency:'USD' }} · Subtotal: {{ it.total | currency:'USD' }}</p>
+        </ion-label>
+        <ion-button size="small" fill="clear" (click)="dec(it)">
+          <ion-icon name="remove-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+        <span class="qty">{{ it.cantidad }}</span>
+        <ion-button size="small" fill="clear" (click)="inc(it)">
+          <ion-icon name="add-outline" slot="icon-only"></ion-icon>
+        </ion-button>
 
-    <ion-item *ngFor="let it of cart.state().items">
-      <ion-img [src]="it.foto_url || 'assets/img/placeholder-product.jpg'" style="width:64px;height:64px;border-radius:8px;margin-right:12px;"></ion-img>
-      <ion-label class="grow">
-        <h3>{{ it.nombre }}</h3>
-        <p>{{ it.precio_unitario | currency:'USD' }} · Subtotal: {{ it.total | currency:'USD' }}</p>
-      </ion-label>
+        <ion-button color="danger" fill="clear" (click)="remove(it)">
+          <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
+        </ion-button>
+      </ion-item>
+    }
 
-      <ion-button size="small" fill="clear" (click)="dec(it)">
-        <ion-icon name="remove-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-      <span class="qty">{{ it.cantidad }}</span>
-      <ion-button size="small" fill="clear" (click)="inc(it)">
-        <ion-icon name="add-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-
-      <ion-button color="danger" fill="clear" (click)="remove(it)">
-        <ion-icon name="trash-outline" slot="icon-only"></ion-icon>
-      </ion-button>
-    </ion-item>
-
-    <ion-item *ngIf="!loading && cart.state().items.length === 0">
-      <ion-label>Tu carrito está vacío</ion-label>
-    </ion-item>
+    @if(!loading && cart.state().items.length === 0){
+      <ion-item>
+        <ion-label>Tu carrito está vacío</ion-label>
+      </ion-item>
+    }
   </ion-list>
 </ion-content>
 

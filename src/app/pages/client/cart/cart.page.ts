@@ -8,6 +8,7 @@ import { CartService } from '../../../core/services/cart.service';
 import { ToastController, AlertController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { trashOutline, addOutline, removeOutline, cartOutline } from 'ionicons/icons';
+import { finalize } from 'rxjs';
 
 @Component({
   standalone: true,
@@ -17,7 +18,7 @@ import { trashOutline, addOutline, removeOutline, cartOutline } from 'ionicons/i
   imports: [
     CommonModule, CurrencyPipe,
     IonContent, IonList, IonItem, IonLabel, IonButton, IonIcon, IonImg,
-    IonFooter, IonToolbar, IonTitle, IonSpinner
+    IonFooter, IonToolbar, IonSpinner
   ]
 })
 export class CartPage implements OnInit {
@@ -33,18 +34,32 @@ export class CartPage implements OnInit {
 
   refresh() {
     this.loading = true;
-    this.cart.load()?.add?.(() => this.loading = false);
+    this.cart.load().pipe(finalize(() => this.loading = false)).subscribe({});
   }
 
-  inc(item:any) { this.cart.update(item.id, item.cantidad + 1); }
-  dec(item:any) { if (item.cantidad > 1) this.cart.update(item.id, item.cantidad - 1); }
-  remove(item:any){ this.cart.remove(item.id); }
+  inc(item: any) {
+    this.cart.update(item.id, item.cantidad + 1).subscribe();
+  }
+
+  dec(item: any) {
+    if (item.cantidad > 1) {
+      this.cart.update(item.id, item.cantidad - 1).subscribe();
+    }
+  }
+
+  remove(item: any) {
+    this.cart.remove(item.id).subscribe();
+  }
 
   async clear() {
-    const a = await this.alert.create({ header:'Vaciar carrito', message:'¿Deseas eliminar todos los productos?', buttons:[
-      { text:'Cancelar', role:'cancel' },
-      { text:'Vaciar', role:'destructive', handler:()=> this.cart.clear() }
-    ]});
+    const a = await this.alert.create({
+      header: 'Vaciar carrito',
+      message: '¿Deseas eliminar todos los productos?',
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        { text: 'Vaciar', role: 'destructive', handler: () => this.cart.clear().subscribe() }
+      ]
+    });
     await a.present();
   }
 
@@ -56,7 +71,7 @@ export class CartPage implements OnInit {
     this.cart.checkout().subscribe({
       next: async (r) => {
         (await this.toast.create({ message:`Pedido generado #${r.cart_id}`, duration:1500, color:'success' })).present();
-        this.cart.clear();
+        this.cart.clear().subscribe();
       },
       error: async () => (await this.toast.create({ message:'No se pudo procesar', duration:1500, color:'danger' })).present()
     });

@@ -32,7 +32,7 @@ export class ProductosPage implements OnInit {
 
     // filtros
     q = '';
-    tipo: number|null = null;
+    tipo: string|null = null;
     publicado: number|null = null;
 
     // paginación
@@ -73,7 +73,7 @@ export class ProductosPage implements OnInit {
         this.loading = true;
         return this.svc.list({
         q: this.q, limit: this.limit, offset: this.offset,
-        tipo: this.tipo, publicado: this.publicado
+        tipos: this.tipo, publicado: this.publicado
         }).subscribe({
         next: rows => {
             const data = rows || [];
@@ -94,7 +94,7 @@ export class ProductosPage implements OnInit {
         this.offset += this.limit;
         this.svc.list({
         q: this.q, limit: this.limit, offset: this.offset,
-        tipo: this.tipo, publicado: this.publicado
+        tipos: this.tipo, publicado: this.publicado
         }).subscribe({
         next: rows => {
             const data = rows || [];
@@ -110,9 +110,16 @@ export class ProductosPage implements OnInit {
     }
 
     // filtros
-    onSearch(ev: any) { this.search$.next(ev?.detail?.value ?? ''); }
-    onChangeTipo(ev: any) { this.tipo = ev?.detail?.value ?? null; this.reload(); }
-    onChangePublicado(ev: any) { this.publicado = ev?.detail?.checked ? 1 : null; this.reload(); }
+    onSearch(ev: any) { 
+        this.search$.next(ev?.detail?.value ?? ''); 
+    }
+
+    onChangeTipo(ev: any) { 
+        this.tipo = ev?.detail?.value ?? null; this.reload(); 
+    }
+    onChangePublicado(ev: any) { 
+        this.publicado = ev?.detail?.checked ? 1 : null; this.reload(); 
+    }
 
     async openCreate() {
         const modal = await this.modal.create({ component: ProductFormModal, componentProps: { mode: 'create' } });

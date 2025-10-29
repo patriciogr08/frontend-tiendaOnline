@@ -24,12 +24,13 @@
                 formControlName="correo">
               </ion-input>
             </ion-item>
-            <ion-text class="error" *ngIf="f.correo.touched && f.correo.errors?.['required']">
-              El correo es obligatorio.
-            </ion-text>
-            <ion-text class="error" *ngIf="f.correo.touched && f.correo.errors?.['email']">
-              Ingresa un correo válido.
-            </ion-text>
+            @if(f.correo.touched && f.correo.errors?.['required']){
+              <ion-text class="error"> El correo es obligatorio.</ion-text>
+            }
+            @if(f.correo.touched && f.correo.errors?.['email']){
+              <ion-text class="error">Ingresa un correo válido.</ion-text>
+            }
+
 
             <ion-item class="input-item" [class.invalid]="f.password.touched && f.password.invalid">
               <ion-input
@@ -43,12 +44,12 @@
                 <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
               </ion-button>
             </ion-item>
-            <ion-text class="error" *ngIf="f.password.touched && f.password.errors?.['required']">
-              La contraseña es obligatoria.
-            </ion-text>
-            <ion-text class="error" *ngIf="f.password.touched && f.password.errors?.['minlength']">
-              Debe tener al menos 6 caracteres.
-            </ion-text>
+            @if(f.password.touched && f.password.errors?.['required']){
+              <ion-text class="error"> La contraseña es obligatoria. </ion-text>
+            }
+            @if(f.password.touched && f.password.errors?.['minlength']){
+              <ion-text class="error"> Debe tener al menos 6 caracteres.</ion-text>
+            }
           </ion-list>
 
           <ion-button

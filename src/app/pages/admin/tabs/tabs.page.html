@@ -13,7 +13,9 @@
                 <ion-tab-button tab="pedidos" [routerLink]="['/admin/pedidos']">
                     <ion-icon name="bag-handle-outline"></ion-icon>
                     <ion-label>Pedidos</ion-label>
-                    <ion-badge *ngIf="pendingCount > 0">{{ pendingCount }}</ion-badge>
+                    @if(pendingCount > 0){
+                        <ion-badge>{{ pendingCount }}</ion-badge>
+                    }
                 </ion-tab-button>
                 <ion-tab-button tab="productos" [routerLink]="['/admin/productos']">
                     <ion-icon name="cube-outline"></ion-icon>

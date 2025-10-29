@@ -7,19 +7,23 @@
 </ion-header>
 
 <ion-content class="ion-padding">
-    <ion-list *ngIf="user">
-        <ion-item>
-        <ion-label>
-            <h2>{{ user.nombre_completo }}</h2>
-            <p>{{ user.correo }} — Rol: {{ user.rol }}</p>
-        </ion-label>
-        </ion-item>
-    </ion-list>
+    @if(user){
+        <ion-list>
+            <ion-item>
+            <ion-label>
+                <h2>{{ user.nombre_completo }}</h2>
+                <p>{{ user.correo }} — Rol: {{ user.rol }}</p>
+            </ion-label>
+            </ion-item>
+        </ion-list>
+    }
+    @else{
+        <div class="empty">
+            <p>No hay información de usuario. Intenta iniciar sesión nuevamente.</p>
+            <ion-button (click)="irLogin()">
+            Ir al login
+            </ion-button>
+        </div>
+    }
 
-    <div *ngIf="!user" class="empty">
-        <p>No hay información de usuario. Intenta iniciar sesión nuevamente.</p>
-        <ion-button (click)="irLogin()">
-        Ir al login
-        </ion-button>
-    </div>
 </ion-content>

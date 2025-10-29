@@ -36,15 +36,11 @@
         <ion-item>
             <ion-toggle formControlName="tiene_descuento">¿Tiene descuento?</ion-toggle>
         </ion-item>
-
-        <ion-item *ngIf="form.value.tiene_descuento">
+        @if(form.value.tiene_descuento){
             <ion-input type="number" label="Descuento" labelPlacement="floating" formControlName="descuento"></ion-input>
-        </ion-item>
-
-        <ion-item *ngIf="form.value.tiene_descuento">
             <ion-input type="number" label="% Porcentaje" labelPlacement="floating" formControlName="porcentaje"></ion-input>
-        </ion-item>
 
+        }
         <app-image-picker
             label="Foto del producto"
             [previewUrl]="model?.foto_url || null"

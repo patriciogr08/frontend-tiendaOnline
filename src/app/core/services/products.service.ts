@@ -7,12 +7,12 @@ export class ProductsService {
 
     meta() { return this.http.get<any>('/products/meta'); }
 
-    list(opts?: { q?: string; limit?: number; offset?: number ; tipo?: number | null; publicado?: number | null}) {
+    list(opts?: { q?: string; limit?: number; offset?: number ; tipos?: string | null; publicado?: number | null}) {
         let params = new HttpParams();
         if (opts?.q)                params = params.set('q', opts.q);
         if (opts?.limit)            params = params.set('limit', opts.limit);
         if (opts?.offset)           params = params.set('offset', opts.offset);
-        if (opts?.tipo!=null)       params = params.set('tipo', String(opts.tipo));
+        if (opts?.tipos!=null)      params = params.set('tipo', String(opts.tipos));
         if (opts?.publicado!=null)  params = params.set('publicado', String(opts.publicado));
         return this.http.get<any[]>('/products', { params });
     }

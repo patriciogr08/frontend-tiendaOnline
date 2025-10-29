@@ -1,0 +1,52 @@
+<ion-content class="ion-padding">
+    @if(title || imageUrl || subtitle){
+        <div class="sheet-header">
+            @if(imageUrl) {
+                <img [src]="imageUrl" alt="" />
+            }
+            <div class="info">
+                @if(title) {
+                    <h2>{{ title }}</h2>
+                }
+                @if(subtitle) {
+                    <h2>{{ subtitle }}</h2>
+                }
+                @if(mode === 'priced') {
+                    <div class="prices">
+                        <span>Unit: {{ unitPrice | currency:'USD' }}</span>
+                        <span class="subtotal">Subtotal: <b>{{ subtotal() | currency:'USD' }}</b></span>
+                    </div>
+                }
+
+            </div>
+        </div>
+    }
+    <div class="qty-row">
+        <ion-button fill="clear" (click)="dec()">
+            <ion-icon name="remove-circle-outline"></ion-icon>
+        </ion-button>
+
+        <ion-input
+            type="number"
+            inputmode="numeric"
+            [min]="min"
+            [max]="max ?? null"
+            [value]="qty()"
+            (ionInput)="onQtyInput(($event.target)?.value)"
+            style="width: 90px; text-align:center;">
+        </ion-input>
+
+        <ion-button fill="clear" (click)="inc()">
+            <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-button>
+    </div>
+
+    <ion-button expand="block" (click)="confirm()">
+        <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+        {{ confirmLabel }}
+    </ion-button>
+
+    <ion-button expand="block" fill="clear" color="medium" (click)="cancel()">
+        {{ cancelLabel }}
+    </ion-button>
+</ion-content>

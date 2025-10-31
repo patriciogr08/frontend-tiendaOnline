@@ -1,26 +1,150 @@
 <ion-content class="ion-padding">
-  <ion-list lines="full">
-    <ion-item>
-      <ion-icon name="person-circle-outline" slot="start"></ion-icon>
-      <ion-label>
-        <h2>{{ user?.nombre_completo }}</h2>
-        <p>{{ user?.correo }} · Rol: {{ user?.rol }}</p>
-      </ion-label>
-    </ion-item>
 
-    <!-- Opcional: cambio de contraseña (luego lo conectamos) -->
-    <!--
-    <ion-item>
-      <ion-icon name="key-outline" slot="start"></ion-icon>
-      <ion-input label="Nueva contraseña" labelPlacement="stacked" type="password"></ion-input>
-    </ion-item>
-    -->
+  <!-- Header usuario -->
+<ion-card class="profile-card">
+  <ion-card-content>
+    <div class="profile-row">
+      <div class="avatar-wrap" (click)="pickAvatar()">
+        <ion-avatar class="avatar big">
+          <img *ngIf="user?.avatar_url" [src]="user.avatar_url" alt="avatar"/>
+          <ion-icon *ngIf="!user?.avatar_url" name="person-circle-outline"></ion-icon>
+        </ion-avatar>
+        <ion-badge class="edit-badge" color="primary">Editar</ion-badge>
+      </div>
 
-    <ion-item lines="none">
-      <ion-button color="medium" (click)="logout()">
-        <ion-icon name="log-out-outline" slot="start"></ion-icon>
-        Cerrar sesión
-      </ion-button>
-    </ion-item>
-  </ion-list>
+      <div class="info">
+        <div class="name">{{ user?.nombre_completo }}</div>
+        <div class="meta">
+          <span class="email">{{ user?.correo }}</span>
+          <span class="dot">·</span>
+          <ion-chip color="primary" outline="true" class="role-chip">
+            <ion-icon slot="start" name="shield-checkmark-outline"></ion-icon>
+            <ion-label>{{ user?.rol }}</ion-label>
+          </ion-chip>
+        </div>
+      </div>
+    </div>
+
+    <input #fileInput type="file" hidden accept="image/png,image/jpeg,image/webp" (change)="onFileSelected($event)">
+  </ion-card-content>
+</ion-card>
+
+
+  <!-- Grupo de acordeones -->
+  <ion-accordion-group expand="inset" value="perfil">
+    <!-- Datos personales -->
+    <ion-accordion value="perfil">
+      <ion-item slot="header">
+        <ion-icon name="save-outline" slot="start"></ion-icon>
+        <ion-label>Datos personales</ion-label>
+      </ion-item>
+      <div class="accordion-body" slot="content">
+        <form [formGroup]="form" (ngSubmit)="saveUser()">
+          <ion-list lines="full">
+            <ion-item [class.invalid]="form.controls['nombre_completo'].touched && form.controls['nombre_completo'].invalid">
+              <ion-input label="Nombre completo" labelPlacement="floating" formControlName="nombre_completo"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-input label="Teléfono" labelPlacement="floating" formControlName="telefono"></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-button type="submit" expand="block" [disabled]="form.invalid">
+            <ion-icon name="save-outline" slot="start"></ion-icon>
+            Guardar cambios
+          </ion-button>
+        </form>
+      </div>
+    </ion-accordion>
+
+    <!-- Cambiar contraseña -->
+    <ion-accordion value="password">
+      <ion-item slot="header">
+        <ion-icon name="key-outline" slot="start"></ion-icon>
+        <ion-label>Cambiar contraseña</ion-label>
+      </ion-item>
+      <div class="accordion-body" slot="content">
+        <form [formGroup]="passForm" (ngSubmit)="changePassword()">
+          <ion-list lines="full">
+            <ion-item [class.invalid]="passForm.controls['contrasena_actual'].touched && passForm.controls['contrasena_actual'].invalid">
+              <ion-input type="password" label="Contraseña actual" labelPlacement="floating" formControlName="contrasena_actual"></ion-input>
+            </ion-item>
+            <ion-item [class.invalid]="passForm.controls['contrasena_nueva'].touched && passForm.controls['contrasena_nueva'].invalid">
+              <ion-input type="password" label="Nueva contraseña" labelPlacement="floating" formControlName="contrasena_nueva"></ion-input>
+            </ion-item>
+          </ion-list>
+          <ion-button type="submit" expand="block" [disabled]="passForm.invalid">
+            <ion-icon name="key-outline" slot="start"></ion-icon>
+            Actualizar contraseña
+          </ion-button>
+        </form>
+      </div>
+    </ion-accordion>
+
+    <!-- Direcciones -->
+    <ion-accordion value="addresses">
+      <ion-item slot="header">
+        <ion-icon name="location-outline" slot="start"></ion-icon>
+        <ion-label>Mis direcciones</ion-label>
+      </ion-item>
+      <div class="accordion-body" slot="content">
+
+        <ion-list lines="full" class="address-list">
+          @for (a of addresses; track a.id) {
+            <ion-item>
+              <ion-label>
+                <b>{{ typeDirection(a.tipo) }}</b>
+                <ion-note color="medium" style="margin-left:6px" *ngIf="a.es_predeterminada">· Predeterminada</ion-note>
+                <div>{{ a.destinatario }}</div>
+                <div>{{ a.linea1 }} {{ a.linea2 }}</div>
+                <div>{{ a.ciudad }}, {{ a.provincia }} {{ a.codigo_postal }}</div>
+                <div>{{ a.pais_codigo }} · {{ a.telefono }}</div>
+              </ion-label>
+              <ion-button fill="clear" (click)="editAddress(a)">
+                <ion-icon name="create-outline"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" color="medium" (click)="setDefault(a)" [disabled]="a.es_predeterminada">
+                <ion-icon [name]="a.es_predeterminada ? 'star' : 'star-outline'"></ion-icon>
+              </ion-button>
+              <ion-button fill="clear" color="danger" (click)="removeAddress(a)">
+                <ion-icon name="trash-outline"></ion-icon>
+              </ion-button>
+            </ion-item>
+          }
+        </ion-list>
+
+        <ion-item-divider> Nueva / Editar dirección </ion-item-divider>
+        <form [formGroup]="addrForm" (ngSubmit)="saveAddress()">
+          <ion-list lines="full">
+            <ion-item>
+              <ion-select label="Tipo" formControlName="tipo">
+                <ion-select-option value="SHIPPING">Envio</ion-select-option>
+                <ion-select-option value="BILLING">Facturación</ion-select-option>
+              </ion-select>
+            </ion-item>
+            <ion-item><ion-input label="Destinatario" labelPlacement="floating" formControlName="destinatario"></ion-input></ion-item>
+            <ion-item><ion-input label="Dirección (línea 1)" labelPlacement="floating" formControlName="linea1"></ion-input></ion-item>
+            <ion-item><ion-input label="Dirección (línea 2)" labelPlacement="floating" formControlName="linea2"></ion-input></ion-item>
+            <ion-item><ion-input label="Ciudad" labelPlacement="floating" formControlName="ciudad"></ion-input></ion-item>
+            <ion-item><ion-input label="Provincia" labelPlacement="floating" formControlName="provincia"></ion-input></ion-item>
+            <ion-item><ion-input label="Código postal" labelPlacement="floating" formControlName="codigo_postal"></ion-input></ion-item>
+            <ion-item><ion-input label="País (ISO-2)" labelPlacement="floating" formControlName="pais_codigo"></ion-input></ion-item>
+            <ion-item><ion-input label="Teléfono" labelPlacement="floating" formControlName="telefono"></ion-input></ion-item>
+            <ion-item>
+              <ion-label>Predeterminada</ion-label>
+              <ion-toggle formControlName="es_predeterminada"></ion-toggle>
+            </ion-item>
+          </ion-list>
+          <div style="display:flex; gap:8px">
+            <ion-button type="submit" [disabled]="addrForm.invalid">
+              <ion-icon [name]="editingId ? 'save-outline' : 'add-outline'" slot="start"></ion-icon>
+              {{ editingId ? 'Actualizar' : 'Crear' }}
+            </ion-button>
+            <ion-button *ngIf="editingId" type="button" fill="outline" color="medium" (click)="cancelEditAddress()">Cancelar</ion-button>
+          </div>
+        </form>
+
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
+
 </ion-content>

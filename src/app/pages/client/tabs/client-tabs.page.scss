@@ -28,3 +28,18 @@ ion-tab-bar {
     --border: 0;
     box-shadow: 0 -6px 16px rgba(16,24,40,.06);
 }
+
+
+.tab-badge {
+    position: absolute;
+    top: 15px;      
+    right: 20px;     
+    transform: translate(50%, -50%);
+    border-radius: 9999px;
+    font-size: 10px;
+    min-width: 18px;
+    height: 18px;
+    line-height: 18px;
+    padding: 0 4px;
+    z-index: 1;
+}

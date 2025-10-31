@@ -4,25 +4,31 @@ import { CommonModule } from '@angular/common';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import {
-  IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet
+  IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel, IonRouterOutlet,IonBadge
 } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { speedometerOutline, bagHandleOutline, peopleOutline, cubeOutline, personCircleOutline, homeOutline, cartOutline } from 'ionicons/icons';
+import { cubeOutline, personCircleOutline, homeOutline, cartOutline } from 'ionicons/icons';
 import { Subscription } from 'rxjs';
 import { AppHeaderComponent } from '../../shared/app-header/app-header.component';
+import { CartService } from 'src/app/core/services/cart.service';
 @Component({
   standalone: true,
   selector: 'app-client-tabs',
   templateUrl: './client-tabs.page.html',
   styleUrls: ['./client-tabs.page.scss'],
-  imports: [CommonModule, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel,IonRouterOutlet, RouterLink, AppHeaderComponent]
+  imports: [
+    CommonModule, IonTabs, IonTabBar, IonTabButton, IonIcon, IonLabel,
+    IonRouterOutlet, RouterLink, AppHeaderComponent,IonBadge]
 })
 export class ClientTabsPage implements OnDestroy {
   title = 'Catálogo';
   sub?: Subscription;
 
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    public cart: CartService
+  ) {
     addIcons({ homeOutline, cartOutline, cubeOutline, personCircleOutline });
 
     this.sub = this.router.events.pipe(filter(e => e instanceof NavigationEnd))

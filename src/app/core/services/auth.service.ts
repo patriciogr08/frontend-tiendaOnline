@@ -1,4 +1,3 @@
-// src/app/core/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { tap } from 'rxjs/operators';
@@ -9,6 +8,28 @@ export class AuthService {
     private userKey = 'user';
 
     constructor(private http: HttpClient) {}
+
+    register(dto: {
+        correo: string;
+        contrasena: string;
+        nombre_completo: string;
+        telefono?: string | null;
+        direccion?: {
+        tipo: 'SHIPPING'|'BILLING';
+        destinatario: string;
+        linea1: string; linea2?: string | null;
+        ciudad: string; provincia: string; codigo_postal?: string | null;
+        pais_codigo: string; telefono?: string | null;
+        es_predeterminada?: boolean;
+        }
+    }) {
+        return this.http.post<any>('/auth/register', dto).pipe(
+        tap(res => {
+            localStorage.setItem(this.key, res.accessToken);
+            localStorage.setItem(this.userKey, JSON.stringify(res.user));
+        })
+        );
+    }
 
     login(dto: { correo: string; password: string }) {
         return this.http.post<any>('/auth/login', dto).pipe(
@@ -33,6 +54,7 @@ export class AuthService {
     }
 
     isAuthenticated() { return !!localStorage.getItem(this.key); }
+
     currentUser() {
         const raw = localStorage.getItem(this.userKey);
         return raw ? JSON.parse(raw) : null;

@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Asignar repartidor</ion-title>
+        <ion-buttons slot="end">
+        <ion-button (click)="close()"><ion-icon name="close-outline"></ion-icon></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [formGroup]="form">
+    <!-- Buscador -->
+    <ion-searchbar
+        formControlName="q"
+        placeholder="Buscar por nombre/correo/teléfono"
+        [debounce]="0">
+    </ion-searchbar>
+
+    <!-- Radios -->
+    <ion-radio-group formControlName="repartidor_usuario_id">
+        <ion-list lines="full">
+        @for (u of rows; track u.id) {
+            <ion-item (click)="selectCourier(u.id)">
+            <ion-label>
+                <div class="name">{{ u.nombre_completo }}</div>
+                <div class="sub">{{ u.correo }} · {{ u.telefono || '—' }}</div>
+            </ion-label>
+            <ion-radio slot="end" [value]="u.id"></ion-radio>
+            </ion-item>
+        }
+        </ion-list>
+    </ion-radio-group>
+
+    <!-- Validación requerida -->
+    @if(form.get('repartidor_usuario_id')?.touched && form.get('repartidor_usuario_id')?.invalid){
+        <div style="color:var(--ion-color-danger); font-size:12px; margin:6px 0;">
+            Debes seleccionar un repartidor.
+        </div>
+    }
+    <!-- Notas -->
+    <ion-item lines="none">
+        <ion-label position="stacked">Notas (opcional)</ion-label>
+        <ion-textarea formControlName="notas" autoGrow="true" placeholder="Instrucciones"></ion-textarea>
+    </ion-item>
+
+    <!-- Acción -->
+    <div style="margin-top:12px">
+        <ion-button expand="block" (click)="confirm()" [disabled]="form.invalid || loading">
+        <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+        Asignar
+        </ion-button>
+    </div>
+</ion-content>

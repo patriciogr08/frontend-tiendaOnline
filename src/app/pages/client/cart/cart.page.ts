@@ -5,7 +5,7 @@ import {
   IonToolbar, IonTitle, IonSpinner
 } from '@ionic/angular/standalone';
 import { CartService } from '../../../core/services/cart.service';
-import { ToastController, AlertController } from '@ionic/angular';
+import { ToastController, AlertController, LoadingController } from '@ionic/angular';
 import { addIcons } from 'ionicons';
 import { trashOutline, addOutline, removeOutline, cartOutline } from 'ionicons/icons';
 import { finalize } from 'rxjs';
@@ -27,7 +27,9 @@ export class CartPage implements OnInit {
   constructor(
     public cart: CartService,
     private toast: ToastController,
-    private alert: AlertController
+    private alert: AlertController,
+    private loadingC: LoadingController,
+
   ) { addIcons({ trashOutline, addOutline, removeOutline, cartOutline }); }
 
   ngOnInit() { this.refresh(); }
@@ -63,17 +65,48 @@ export class CartPage implements OnInit {
     await a.present();
   }
 
+  private money(n: number) {
+    return new Intl.NumberFormat('es-EC', { style: 'currency', currency: 'USD' }).format(n || 0);
+  }
+
   async doCheckout() {
-    if (this.cart.state().items.length === 0) {
+    const state = this.cart.state();
+    if (!state.items.length) {
       (await this.toast.create({ message:'Tu carrito está vacío', duration:1200, color:'warning' })).present();
       return;
     }
-    this.cart.checkout().subscribe({
-      next: async (r) => {
-        (await this.toast.create({ message:`Pedido generado #${r.cart_id}`, duration:1500, color:'success' })).present();
-        this.cart.clear().subscribe();
-      },
-      error: async () => (await this.toast.create({ message:'No se pudo procesar', duration:1500, color:'danger' })).present()
+
+    const total = state.total;
+    const count = state.items.reduce((a, it) => a + (it.cantidad || 1), 0);
+
+    const alert = await this.alert.create({
+      header: 'Confirmar compra',
+      message: `Vas a comprar ${count} ${count === 1 ? 'artículo' : 'artículos'} por ${this.money(total)}.`,
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Sí, comprar',
+          handler: async () => {
+            const loader = await this.loadingC.create({ message: 'Procesando pedido...' });
+            await loader.present();
+
+            this.cart.checkout().subscribe({
+              next: async (r:any) => {
+                const label = r?.numero ? `Pedido ${r.numero}` : `Pedido #${r.pedido_id}`;
+                (await this.toast.create({ message:`Generado: ${label}`, duration:1500, color:'success' })).present();
+                this.cart.clear().subscribe();
+                await loader.dismiss();
+              },
+              error: async () => {
+                await loader.dismiss();
+                (await this.toast.create({ message:'No se pudo procesar', duration:1500, color:'danger' })).present();
+              }
+            });
+          }
+        }
+      ]
     });
+
+    await alert.present();
   }
 }

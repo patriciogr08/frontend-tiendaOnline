@@ -7,7 +7,7 @@ import { Router } from '@angular/router';
 import { AuthService } from '../../core/services/auth.service';
 import {
   IonContent, IonCard, IonCardContent, IonList, IonItem, IonInput,
-  IonButton, IonIcon, IonText, IonImg
+  IonButton, IonIcon, IonText, IonImg 
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
 import { eye, eyeOff, logInOutline } from 'ionicons/icons';
@@ -20,7 +20,7 @@ import { eye, eyeOff, logInOutline } from 'ionicons/icons';
   imports: [
     CommonModule, ReactiveFormsModule,
     IonContent, IonCard, IonCardContent, IonList, IonItem, IonInput,
-    IonButton, IonIcon, IonText, IonImg
+    IonButton, IonIcon, IonText, IonImg 
   ]
 })
 export class LoginPage {
@@ -48,33 +48,38 @@ export class LoginPage {
     this.showPassword = !this.showPassword;
   }
 
-async submit() {
-  if (this.form.invalid) return;
-  const loader = await this.loading.create({ message: 'Ingresando...' });
-  await loader.present();
+  async submit() {
+    if (this.form.invalid) return;
+    const loader = await this.loading.create({ message: 'Ingresando...' });
+    await loader.present();
 
-  this.auth.login(this.form.value as any).subscribe({
-    next: async (res: any) => {
-      await loader.dismiss();
-      
-      const t = await this.toast.create({ message: '¡Bienvenido!', duration: 1500, color: 'success' });
-      await t.present();
+    this.auth.login(this.form.value as any).subscribe({
+      next: async (res: any) => {
+        await loader.dismiss();
+        
+        const t = await this.toast.create({ message: '¡Bienvenido!', duration: 1500, color: 'success' });
+        await t.present();
 
-      const rol = res?.user?.rol ?? this.auth.currentUser()?.rol;
-      if (rol === 'ADMIN') {
-        this.router.navigateByUrl('/admin', { replaceUrl: true });
-      } else if (rol === 'REPARTIDOR') {
-        this.router.navigateByUrl('/courier/orders', { replaceUrl: true });
-      } else {
-        this.router.navigateByUrl('/shop', { replaceUrl: true });
+        const rol = res?.user?.rol ?? this.auth.currentUser()?.rol;
+        if (rol === 'ADMIN') {
+          this.router.navigateByUrl('/admin', { replaceUrl: true });
+        } else if (rol === 'REPARTIDOR') {
+          this.router.navigateByUrl('/courier', { replaceUrl: true });
+        } else {
+          this.router.navigateByUrl('/client', { replaceUrl: true });
+        }
+      },
+      error: async (err) => {
+        await loader.dismiss();
+        const msg = err?.error?.message ?? 'No se pudo iniciar sesión';
+        const t = await this.toast.create({ message: msg, duration: 2500, color: 'danger', icon: 'warning' });
+        await t.present();
       }
-    },
-    error: async (err) => {
-      await loader.dismiss();
-      const msg = err?.error?.message ?? 'No se pudo iniciar sesión';
-      const t = await this.toast.create({ message: msg, duration: 2500, color: 'danger', icon: 'warning' });
-      await t.present();
-    }
-  });
-}
+    });
+  }
+
+  goRegister(){ 
+    this.router.navigateByUrl('/register'); 
+  }
+
 }

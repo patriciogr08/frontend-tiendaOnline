@@ -1,0 +1,92 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons  slot="end" >
+            <ion-button (click)="openCreateRepartidor()">
+                <ion-icon name="person-add-outline" slot="start"></ion-icon>
+                Crear Repartidor
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ion-card class="filters-card compact">
+        <ion-card-content class="filters-row">
+            <ion-icon name="search-outline" class="icon"></ion-icon>
+
+            <ion-input
+                placeholder="Buscar usuario"
+                [(ngModel)]="q"
+                (ionInput)="onFilterInput()"
+                class="flex-1">
+            </ion-input>
+
+            <ion-select interface="popover"
+                [(ngModel)]="estado"
+                (ionChange)="applyFilters()"
+                class="state-select">
+                <ion-select-option value="">Todos</ion-select-option>
+                <ion-select-option value="ACTIVE">Activos</ion-select-option>
+                <ion-select-option value="BLOCKED">Bloqueados</ion-select-option>
+            </ion-select>
+        </ion-card-content>
+    </ion-card>
+
+    <ion-card>
+        <ion-card-content>
+            <ion-list lines="none" class="users-list">
+            @for (u of rows; track u.id) {
+                <ion-item class="user-item">
+                    <div class="layout">
+                        <!-- Columna izquierda -->
+                        <div class="left">
+                            <div class="row1">
+                                <div class="name" title="{{u.nombre_completo}}">{{ u.nombre_completo }}</div>
+                            </div>
+                            <div class="row2 sub">
+                                <span class="truncate" title="{{u.correo}}">{{ u.correo }}</span>
+                            </div>
+                            <div class="row3">
+                                <ion-badge color="primary" mode="ios">{{ u.rol }}</ion-badge>
+                            </div>
+                        </div>
+
+                        <!-- Columna derecha -->
+                        <div class="right">
+                            <div class="row1">
+                                <ion-badge class="state" [color]="u.estado==='ACTIVE' ? 'success' : 'medium'">
+                                    {{ u.estado === 'ACTIVE' ? 'ACTIVO' : 'BLOQUEADO' }}
+                                </ion-badge>
+                            </div>
+                            <div class="row2 actions">
+                                <ion-button fill="clear" size="small" (click)="editUser(u)" aria-label="Editar">
+                                <ion-icon name="create-outline"></ion-icon>
+                                </ion-button>
+                                <ion-button
+                                fill="clear"
+                                size="small"
+                                [color]="u.estado==='ACTIVE' ? 'danger' : 'success'"
+                                (click)="toggleStatus(u)"
+                                [attr.aria-label]="u.estado==='ACTIVE' ? 'Bloquear' : 'Desbloquear'">
+                                <ion-icon [name]="u.estado==='ACTIVE' ? 'lock-closed-outline' : 'lock-open-outline'"></ion-icon>
+                                </ion-button>
+                            </div>
+                        </div>
+                    </div>
+                </ion-item>
+            }
+            </ion-list>
+            @if(!loading && rows.length===0){
+                <div class="ion-text-center" style="padding:12px;color:var(--ion-color-medium)">
+                    No hay usuarios para mostrar.
+                </div>
+            }
+            @if(hasMore && !loading){
+                <div class="ion-text-center" style="margin-top:12px">
+                    <ion-button fill="clear" (click)="fetch()">Cargar más</ion-button>
+                </div>
+            }
+        </ion-card-content>
+    </ion-card>
+
+</ion-content>

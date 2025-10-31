@@ -1,0 +1,84 @@
+.users-list {
+    .user-item {
+        border-style: outset;
+        border-radius: 0.5rem;
+        padding: 1rem 0.5rem;
+        margin-bottom: 0.3rem;
+        .layout {
+            display: grid;
+            grid-template-columns: 1fr auto; /* izquierda / derecha */
+            gap: 12px;
+            width: 100%;
+            align-items: center;
+        }
+
+        .left {
+            display: grid;
+            grid-template-rows: auto auto auto;
+            gap: 4px;
+            min-width: 0; /* permite truncado */
+        }
+
+        .name {
+            font-weight: 700;
+            font-size: 15px;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+
+        .sub {
+            color: var(--ion-color-medium);
+            font-size: 13px;
+            .truncate { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: inline-block; max-width: 100%; }
+        }
+
+        .right {
+            display: grid;
+            grid-template-rows: auto auto;
+            justify-items: end;
+            align-items: center;
+            row-gap: 6px;
+            min-width: 160px; /* asegura columna estable */
+        }
+
+        .state {
+            min-width: 88px;
+            justify-content: center;
+        }
+
+        .actions {
+            display: inline-flex;
+            gap: 2px;
+            ion-button { --padding-start: 6px; --padding-end: 6px; }
+            ion-icon { font-size: 18px; } /* proporción pareja */
+        }
+    }
+}
+.filters-card.compact {
+    margin-bottom: 12px;
+    ion-card-content { padding: 8px 10px; }
+}
+
+.filters-row {
+    display: flex; align-items: center; gap: 8px;
+    .icon { font-size: 18px; color: var(--ion-color-medium); }
+    .flex-1 { flex: 1 1 auto; --padding-start: 8px; --min-height: 36px; }
+    .state-select { --min-height: 36px; min-width: 140px; }
+    ion-button { --padding-start: 12px; --padding-end: 12px; --border-radius: 12px; height: 36px; }
+}
+
+/* Responsive: apila en pantallas angostas */
+@media (max-width: 480px) {
+    .filters-row { flex-wrap: wrap; }
+    .state-select { min-width: 120px; }
+}
+
+/* Responsive: en pantallas muy angostas apila la derecha debajo */
+@media (max-width: 420px) {
+    .users-list .user-item .layout {
+        grid-template-columns: 1fr;
+        row-gap: 8px;
+    }
+    .users-list .user-item .right {
+        justify-items: start;
+    }
+}

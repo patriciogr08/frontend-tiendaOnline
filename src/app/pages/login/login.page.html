@@ -61,11 +61,12 @@
             <ion-icon name="log-in-outline" slot="start"></ion-icon>
             Ingresar
           </ion-button>
-
-          <div class="aux-actions">
-            <a routerLink="/forgot" class="link">¿Olvidaste tu contraseña?</a>
-          </div>
         </form>
+        <div class="aux-actions">
+          <ion-button fill="outline" expand="block" type="button" (click)="goRegister()">
+            Crear una cuenta
+          </ion-button>
+        </div>
       </ion-card-content>
     </ion-card>
 

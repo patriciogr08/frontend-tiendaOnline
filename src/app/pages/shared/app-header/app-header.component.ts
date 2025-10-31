@@ -20,7 +20,10 @@ export class AppHeaderComponent {
     @Input() showLogout = true;
     user = this.auth.currentUser();
 
-    constructor(private auth: AuthService, private router: Router) {
+    constructor(
+        private auth: AuthService, 
+        private router: Router
+    ) {
         addIcons({ logOutOutline });
     }
 

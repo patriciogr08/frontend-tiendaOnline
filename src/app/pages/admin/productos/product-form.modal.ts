@@ -46,7 +46,7 @@ export class ProductFormModal implements OnInit {
 
     constructor(
         private fb: FormBuilder,
-        private modal: ModalController,
+        private modalCtrl: ModalController,
         private toast: ToastController,
         private products: ProductsService,
         private tiposSvc: ProductTypesService
@@ -84,7 +84,7 @@ export class ProductFormModal implements OnInit {
         return true;
     }
 
-    close() { this.modal.dismiss(null, 'cancel'); }
+    close() { this.modalCtrl.dismiss(null, 'cancel'); }
 
     async save() {
         if (this.form.invalid) return;
@@ -103,7 +103,7 @@ export class ProductFormModal implements OnInit {
         req$.subscribe({
         next: async () => {
             (await this.toast.create({ message: 'Guardado', duration: 1500, color: 'success' })).present();
-            this.modal.dismiss(true, 'saved');
+            this.modalCtrl.dismiss(true, 'saved');
         },
         error: async () => {
             (await this.toast.create({ message: 'Error al guardar', duration: 2000, color: 'danger' })).present();

@@ -1,13 +1,66 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>register</ion-title>
-  </ion-toolbar>
-</ion-header>
-
+<!-- src/app/pages/register/register.page.html -->
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">register</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <ion-card>
+    <ion-card-content>
+      <h2>Crear cuenta</h2>
+
+      <form [formGroup]="form" (ngSubmit)="submit()">
+        <ion-list lines="full">
+          <ion-item [class.invalid]="f.correo.touched && f.correo.invalid">
+            <ion-input label="Correo" labelPlacement="floating" type="email" formControlName="correo"></ion-input>
+          </ion-item>
+          @if(f.correo.touched && f.correo.errors?.['required']){<ion-text color="danger">El correo es obligatorio.</ion-text>}
+          @if(f.correo.touched && f.correo.errors?.['email']){<ion-text color="danger">Correo inválido.</ion-text>}
+
+          <ion-item [class.invalid]="f.contrasena.touched && f.contrasena.invalid">
+            <ion-input label="Contraseña" labelPlacement="floating" type="password" formControlName="contrasena"></ion-input>
+          </ion-item>
+          @if(f.contrasena.touched && f.contrasena.errors?.['required']){<ion-text color="danger">La contraseña es obligatoria.</ion-text>}
+          @if(f.contrasena.touched && f.contrasena.errors?.['minlength']){<ion-text color="danger">Mínimo 6 caracteres.</ion-text>}
+
+          <ion-item [class.invalid]="f.nombre_completo.touched && f.nombre_completo.invalid">
+            <ion-input label="Nombre completo" labelPlacement="floating" formControlName="nombre_completo"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-input label="Teléfono" labelPlacement="floating" formControlName="telefono"></ion-input>
+          </ion-item>
+
+          <ion-item>
+            <ion-label>Agregar dirección inicial</ion-label>
+            <ion-toggle formControlName="withAddress"></ion-toggle>
+          </ion-item>
+
+          @if(form.value.withAddress){
+            <ion-item><ion-select label="Tipo" formControlName="tipo">
+              <ion-select-option value="SHIPPING">Envio</ion-select-option>
+              <ion-select-option value="BILLING">Facturación</ion-select-option>
+            </ion-select></ion-item>
+
+            <ion-item><ion-input label="Destinatario" labelPlacement="floating" formControlName="destinatario"></ion-input></ion-item>
+            <ion-item><ion-input label="Dirección (línea 1)" labelPlacement="floating" formControlName="linea1"></ion-input></ion-item>
+            <ion-item><ion-input label="Dirección (línea 2)" labelPlacement="floating" formControlName="linea2"></ion-input></ion-item>
+            <ion-item><ion-input label="Ciudad" labelPlacement="floating" formControlName="ciudad"></ion-input></ion-item>
+            <ion-item><ion-input label="Provincia" labelPlacement="floating" formControlName="provincia"></ion-input></ion-item>
+            <ion-item><ion-input label="Código postal" labelPlacement="floating" formControlName="codigo_postal"></ion-input></ion-item>
+            <ion-item><ion-input label="País (ISO-2)" labelPlacement="floating" formControlName="pais_codigo"></ion-input></ion-item>
+            <ion-item><ion-input label="Teléfono destino" labelPlacement="floating" formControlName="tel_dir"></ion-input></ion-item>
+            <ion-item>
+              <ion-label>Predeterminada</ion-label>
+              <ion-toggle formControlName="es_predeterminada"></ion-toggle>
+            </ion-item>
+          }
+        </ion-list>
+
+        <ion-button expand="block" type="submit" [disabled]="form.invalid">
+          <ion-icon name="person-add-outline" slot="start"></ion-icon>
+          Crear cuenta
+        </ion-button>
+
+        <div style="text-align:center;margin-top:8px;">
+          <a (click)="goLogin()">¿Ya tienes cuenta? Inicia sesión</a>
+        </div>
+      </form>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

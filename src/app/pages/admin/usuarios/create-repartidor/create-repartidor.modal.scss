@@ -1,0 +1,10 @@
+.form-list {
+    ion-item {
+        --inner-padding-end: 8px;
+    }
+}
+
+ion-button[expand="block"] {
+    margin-top: 12px;
+    --border-radius: 12px;
+}

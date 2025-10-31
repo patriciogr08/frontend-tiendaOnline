@@ -23,7 +23,6 @@ export class CartService {
     }
 
     update(itemId: number, cantidad: number) {
-        // si tu backend usa PATCH, cambia put -> patch
         return this.http.put<CartState>(`${this.base}/items/${itemId}`, { cantidad })
         .pipe(tap(s => this.state.set(s)));
     }
@@ -34,12 +33,12 @@ export class CartService {
     }
 
     clear() {
-        return this.http.delete<CartState>(`${this.base}/items`)
+        return this.http.delete<CartState>(`${this.base}/clear`)
         .pipe(tap(s => this.state.set(s)));
     }
 
     checkout() {
-        return this.http.post<{ ok:boolean; cart_id:number }>(`${this.base}/checkout`, {});
+        return this.http.post<any>(`${this.base}/checkout`, {});
     }
 
 }

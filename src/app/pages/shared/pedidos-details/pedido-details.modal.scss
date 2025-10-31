@@ -1,0 +1,13 @@
+.hdr {
+  display:flex; justify-content:space-between; gap:12px; margin-bottom:10px;
+  .cliente { font-weight:800; }
+  .sub { color:var(--ion-color-medium); font-size:12px; }
+  .estados { display:flex; gap:6px; align-items:center; }
+}
+.items .line1 { display:flex; justify-content:space-between; }
+.items .line2 { display:flex; justify-content:space-between; color:var(--ion-color-medium); font-size:12px; }
+.totals { margin-top:12px;
+  > div { display:flex; justify-content:space-between; margin:4px 0; }
+  .grand { font-size:16px; border-top:1px solid rgba(0,0,0,.08); padding-top:6px; }
+}
+.pagos h4 { margin: 16px 0 8px; }

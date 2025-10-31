@@ -45,7 +45,7 @@ export class ProductosPage implements OnInit {
     constructor(
         private svc: ProductsService,
         private tiposSvc: ProductTypesService,
-        private modal: ModalController,
+        private modalCtrl: ModalController,
         private toast: ToastController
     ) {
         addIcons({ createOutline, trashOutline, addOutline });
@@ -122,14 +122,14 @@ export class ProductosPage implements OnInit {
     }
 
     async openCreate() {
-        const modal = await this.modal.create({ component: ProductFormModal, componentProps: { mode: 'create' } });
+        const modal = await this.modalCtrl.create({ component: ProductFormModal, componentProps: { mode: 'create' } });
         await modal.present();
         const { role } = await modal.onWillDismiss();
         if (role === 'saved') this.reload();
     }
 
     async openEdit(model: any) {
-        const modal = await this.modal.create({ component: ProductFormModal, componentProps: { mode: 'edit', model } });
+        const modal = await this.modalCtrl.create({ component: ProductFormModal, componentProps: { mode: 'edit', model } });
         await modal.present();
         const { role } = await modal.onWillDismiss();
         if (role === 'saved') this.reload();

@@ -1,4 +1,30 @@
-<ion-content class="ion-padding">
-    <h2>Mis pedidos</h2>
-    <p>Página de pedidos del cliente (pendiente de implementar).</p>
-</ion-content>
+<!-- LISTA MOBILE-FIRST -->
+<ion-list class="orders-list">
+    @for (o of rows; track o.id) {
+        <ion-item class="order-card" button (click)="openDetail(o)">
+            <div class="grid">
+                <!-- fila 0 -->
+                <div class="c00 num">{{ o.numero }}</div>
+                <div class="c01"></div>
+                <div class="c02 total">{{ money(o.total, o.moneda) }}</div>
+
+                <!-- fila 1 -->
+                <div class="c10 date">{{ o.created_at | date:'short' }}</div>
+                <div class="c11 name" title="{{o.cliente_nombre}}">{{ o.cliente_nombre }}</div>
+                <div class="c12">
+                <ion-badge class="state" [color]="badgeColorEstado(o.estado)">{{ o.estado }}</ion-badge>
+                </div>
+            </div>
+        </ion-item>
+    }
+    @if(!loading && rows.length===0){
+        <div class="ion-text-center"  style="padding:8px;color:var(--ion-color-medium)">
+            No hay pedidos para mostrar.
+        </div>
+    }
+    @if(hasMore && !loading){
+        <div class="ion-text-center" style="margin:12px 0">
+            <ion-button fill="outline" size="small" (click)="fetch()">Cargar más</ion-button>
+        </div>
+    }
+</ion-list>

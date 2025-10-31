@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Pedido {{ data?.numero || ('#' + orderId) }}</ion-title>
+        <ion-buttons slot="end">
+        <ion-button (click)="close()"><ion-icon name="close-outline"></ion-icon></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+    <ng-container *ngIf="!loading && data; else sk">
+        <!-- Encabezado -->
+        <div class="hdr">
+        <div>
+            <div class="cliente">{{ data.cliente_nombre }}</div>
+            <div class="sub">{{ data.cliente_correo }} · {{ data.cliente_telefono || '—' }}</div>
+            <div class="sub">{{ data.created_at | date:'medium' }}</div>
+        </div>
+        <div class="estados">
+            <ion-badge [color]="badgeEstado(data.estado)">{{ data.estado }}</ion-badge>
+        </div>
+        </div>
+
+        <!-- Items -->
+        <ion-list lines="full" class="items">
+        <ion-item *ngFor="let it of data.items">
+            <ion-label>
+            <div class="line1">
+                <b>{{ it.producto_nombre }}</b>
+                <span>x{{ it.cantidad }}</span>
+            </div>
+            <div class="line2">
+                <span>Unit: {{ money(it.precio_unitario, data.moneda) }}</span>
+                <span>Total: <b>{{ money(it.total, data.moneda) }}</b></span>
+            </div>
+            </ion-label>
+        </ion-item>
+        </ion-list>
+
+        <!-- Totales -->
+        <div class="totals">
+        <div><span>Subtotal</span><b>{{ money(data.subtotal, data.moneda) }}</b></div>
+        <div class="grand"><span>Total</span><b>{{ money(data.total, data.moneda) }}</b></div>
+        </div>
+
+        <!-- Pagos -->
+        @if(data.pagos?.length){
+            <div class="pagos">
+                <h4>Pagos</h4>
+                <ion-list lines="full">
+                    @for (p of data.pagos; track p) {
+                        <ion-item>
+                            <ion-label>
+                                <div><b>{{ p.metodo }}</b> · {{ money(p.monto, data.moneda) }}</div>
+                                <div class="sub">Estado: {{ p.estado }} · {{ p.created_at | date:'short' }}</div>
+                            </ion-label>
+                        </ion-item>
+                    }
+                </ion-list>
+            </div>
+        }
+
+    </ng-container>
+
+    <ng-template #sk>
+        <ion-list>
+            @for (s of [1,2,3]; track s) {
+                <ion-item>
+                    <ion-label>Cargando…</ion-label>
+                </ion-item>
+            }
+        </ion-list>
+    </ng-template>
+</ion-content>

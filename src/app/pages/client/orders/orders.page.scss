@@ -1,0 +1,38 @@
+.order-card {
+    --inner-padding-start: 12px;
+    --inner-padding-end: 12px;
+    --min-height: 72px;
+
+    .grid {
+        display: grid;
+        grid-template-columns: 150px 1fr auto; /* (0) izquierda, (1) flexible, (2) derecha */
+        grid-template-rows: auto auto;        /* 2 filas */
+        column-gap: 10px;
+        row-gap: 4px;
+        align-items: center;
+        width: 100%;
+        min-width: 0; /* permite truncado en col 1 */
+    }
+
+    /* posiciones */
+    .c00 { grid-column: 1; grid-row: 1; }
+    .c01 { grid-column: 2; grid-row: 1; }
+    .c02 { grid-column: 3; grid-row: 1; text-align: right; }
+
+    .c10 { grid-column: 1; grid-row: 2; color: var(--ion-color-medium); font-size: 12px; }
+    .c11 { grid-column: 2; grid-row: 2; min-width: 0; }
+    .c12 { grid-column: 3; grid-row: 2; text-align: right; }
+
+    /* estilos */
+    .num   { font-weight: 800; letter-spacing: .2px; }
+    .total { font-weight: 800; }
+    .name  { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .state { min-width: 96px; justify-content: center; }
+}
+
+/* responsive angosto: afina la columna izquierda y deja respirar el nombre */
+@media (max-width: 420px) {
+    .order-card .grid {
+        grid-template-columns: 120px 1fr auto;
+    }
+}

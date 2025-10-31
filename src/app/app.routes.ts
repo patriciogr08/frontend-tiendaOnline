@@ -5,7 +5,7 @@ import { allowRolesGuard } from './core/guards/allow-roles.guard';
 
 export const routes: Routes = [
   { path: 'login', loadComponent: () => import('./pages/login/login.page').then(m => m.LoginPage) },
-
+  {path: 'register',loadComponent: () => import('./pages/register/register.page').then(m => m.RegisterPage) },
   // ===== ADMIN (con tabs propios) =====
   {
     path: 'admin',
@@ -15,12 +15,11 @@ export const routes: Routes = [
       { path: 'dashboard',  data:{title:'Dashboard'},  loadComponent: () => import('./pages/admin/dashboard/dashboard.page').then(m => m.DashboardPage) },
       { path: 'pedidos',    data:{title:'Pedidos'},    loadComponent: () => import('./pages/admin/pedidos/pedidos.page').then(m => m.PedidosPage) },
       { path: 'productos',  data:{title:'Productos'},  loadComponent: () => import('./pages/admin/productos/productos.page').then(m => m.ProductosPage) },
-      // { path: 'usuarios',   data:{title:'Usuarios'},   loadComponent: () => import('./pages/admin/usuarios/usuarios.page').then(m => m.UsuariosPage) },
+      { path: 'usuarios',   data:{title:'Usuarios'},   loadComponent: () => import('./pages/admin/usuarios/usuarios.page').then(m => m.UsuariosPage) },
       { path: 'perfil',     data:{title:'Perfil'},     loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage) },
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' }
     ]
   },
-
   // ===== CLIENTE (tabs propios) =====
   {
     path: 'client',
@@ -35,12 +34,11 @@ export const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'shop' }
     ]
   },
-
   // ===== REPARTIDOR (tabs propios, opcional) =====
   {
     path: 'courier',
     canActivate: [authGuard, allowRolesGuard],
-    data: { roles: ['CLIENTE','ADMIN'] },
+    data: { roles: ['REPARTIDOR','ADMIN'] },
     loadComponent: () => import('./pages/courier/tabs/courier-tabs.page').then(m => m.CourierTabsPage),
     children: [
       { path: 'orders',  data:{title:'Asignados'}, loadComponent: () => import('./pages/courier/orders/courier-orders.page').then(m => m.CourierOrdersPage) },
@@ -48,6 +46,5 @@ export const routes: Routes = [
       { path: '', pathMatch: 'full', redirectTo: 'orders' }
     ]
   },
-
   { path: '', pathMatch: 'full', redirectTo: 'login' }
 ];

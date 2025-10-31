@@ -1,9 +1,9 @@
 import { Component, Input, OnDestroy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon,
-  IonContent, IonList, IonItem, IonLabel, IonSearchbar,
-  IonRadioGroup, IonRadio, IonTextarea
+    IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonIcon,
+    IonContent, IonList, IonItem, IonLabel, IonSearchbar,
+    IonRadioGroup, IonRadio, IonTextarea
 } from '@ionic/angular/standalone';
 import { ModalController } from '@ionic/angular';
 import { addIcons } from 'ionicons';

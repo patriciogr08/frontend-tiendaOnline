@@ -39,8 +39,7 @@
 
         <!-- Totales -->
         <div class="totals">
-        <div><span>Subtotal</span><b>{{ money(data.subtotal, data.moneda) }}</b></div>
-        <div class="grand"><span>Total</span><b>{{ money(data.total, data.moneda) }}</b></div>
+            <div class="grand"><span>Total</span><b>{{ money(data.total, data.moneda) }}</b></div>
         </div>
 
         <!-- Pagos -->
@@ -52,14 +51,19 @@
                         <ion-item>
                             <ion-label>
                                 <div><b>{{ p.metodo }}</b> · {{ money(p.monto, data.moneda) }}</div>
-                                <div class="sub">Estado: {{ p.estado }} · {{ p.created_at | date:'short' }}</div>
+                                <div class="sub">Estado: {{ p.estado }}</div>
+                                <div class="sub">Fecha Pago: {{ p.recibido_en | date:'short' }}</div>
                             </ion-label>
                         </ion-item>
+                        @if(isAdmin && p.comprobante_transferencia_url){
+                            <div class="receipt-wrap" slot="end">
+                                <img [src]="p.comprobante_transferencia_url" alt="Comprobante" class="receipt-img" loading="lazy">
+                            </div>
+                        }
                     }
                 </ion-list>
             </div>
         }
-
     </ng-container>
 
     <ng-template #sk>

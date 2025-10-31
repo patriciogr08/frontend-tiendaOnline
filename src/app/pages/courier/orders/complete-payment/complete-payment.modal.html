@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>Completar y cobrar</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="close()"><ion-icon name="close-outline"></ion-icon></ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding" [formGroup]="form">
+    <ion-item>
+        <ion-label>Método</ion-label>
+    </ion-item>
+
+    <ion-radio-group formControlName="metodo">
+        <ion-item (click)="form.patchValue({metodo: 'EFECTIVO'})">
+            <ion-radio slot="start" value="EFECTIVO"></ion-radio>
+            <ion-label><ion-icon name="cash-outline"></ion-icon> Efectivo</ion-label>
+        </ion-item>
+        <ion-item (click)="form.patchValue({metodo: 'TRANSFERENCIA'})">
+            <ion-radio slot="start" value="TRANSFERENCIA"></ion-radio>
+            <ion-label><ion-icon name="card-outline"></ion-icon> Transferencia</ion-label>
+        </ion-item>
+    </ion-radio-group>
+
+    <ion-item>
+        <ion-label position="stacked">Monto</ion-label>
+        <ion-input type="number" step="0.01" formControlName="monto"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+        <ion-label position="stacked">Comprobante (obligatorio)</ion-label>
+
+        <app-image-picker
+            [label]="'Seleccionar imagen'"
+            [maxMB]="2"
+            [accept]="'image/png,image/jpeg,image/webp,image/gif'"
+            [previewUrl]="preview || null"
+            (fileChange)="setFile($event)">
+        </app-image-picker>
+        @if(form.get('file')?.touched && form.get('file')?.invalid){
+            <div style="color:var(--ion-color-danger); font-size:12px; margin-top:6px;">
+                El comprobante es obligatorio.
+            </div>
+        }
+    </ion-item>
+
+    <div style="margin-top:12px">
+        <ion-button expand="block" (click)="confirm()" [disabled]="form.invalid">
+        <ion-icon name="checkmark-outline" slot="start"></ion-icon>
+        Confirmar y registrar pago
+        </ion-button>
+    </div>
+</ion-content>

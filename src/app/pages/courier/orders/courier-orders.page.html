@@ -1,4 +1,46 @@
-<ion-content class="ion-padding">
-    <h2>Pedidos asignados</h2>
-    <p>Aquí listaremos los pedidos pendientes del repartidor.</p>
+<ion-content>
+    <ion-segment [value]="tab" (ionChange)="changeTab($event)">
+        <ion-segment-button value="ASIGNADO"><ion-label>Asignado</ion-label></ion-segment-button>
+        <ion-segment-button value="EN_REPARTO"><ion-label>En reparto</ion-label></ion-segment-button>
+        <ion-segment-button value="COMPLETADOS"><ion-label>Completados</ion-label></ion-segment-button>
+    </ion-segment>
+
+    <ion-refresher slot="fixed" (ionRefresh)="reload($event)">
+        <ion-refresher-content></ion-refresher-content>
+    </ion-refresher>
+
+    <ion-list class="orders-list">
+        @for (o of rows; track o.id) {
+        <ion-item class="order-card">
+            <div class="grid">
+            <div class="c00 num">{{ o.numero }}</div>
+            <div class="c01">
+                <ion-badge [color]="badgeColorEstado(o.estado)">{{ o.estado }}</ion-badge>
+            </div>
+            <div class="c02 total">{{ money(o.total, o.moneda) }}</div>
+
+            <div class="c10 date">{{ o.created_at | date:'short' }}</div>
+            <div class="c11 name">{{ o.cliente_nombre }}</div>
+                <div class="c12 right">
+                    <!-- Acciones -->
+                    <ion-button *ngIf="o.estado==='ASIGNADO'" size="small" fill="clear" (click)="start(o)">
+                    <ion-icon slot="start" name="play-outline"></ion-icon> Iniciar
+                    </ion-button>
+
+                    <ion-button *ngIf="o.estado==='EN_REPARTO'" size="small" (click)="complete(o)">
+                        <ion-icon slot="start" name="checkbox-outline"></ion-icon> Completar
+                    </ion-button>
+                </div>
+            </div>
+        </ion-item>
+        }
+
+        <div class="ion-text-center" *ngIf="!loading && rows.length===0" style="padding:12px;color:var(--ion-color-medium)">
+            No hay pedidos.
+        </div>
+    </ion-list>
+
+    <ion-infinite-scroll threshold="100px" (ionInfinite)="fetchMore($event)" *ngIf="hasMore">
+        <ion-infinite-scroll-content></ion-infinite-scroll-content>
+    </ion-infinite-scroll>
 </ion-content>

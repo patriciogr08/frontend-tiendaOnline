@@ -22,6 +22,7 @@ import { OrdersService } from 'src/app/core/services/orders.service';
 })
 export class PedidoDetailsModal implements OnInit {
     @Input() orderId!: number;
+    @Input() isAdmin = false;
 
     data: any;
     loading = true;
@@ -31,6 +32,7 @@ export class PedidoDetailsModal implements OnInit {
         private api: OrdersService
     ) {
         addIcons({ closeOutline });
+        console.log(this.isAdmin)
     }
 
     ngOnInit(): void {

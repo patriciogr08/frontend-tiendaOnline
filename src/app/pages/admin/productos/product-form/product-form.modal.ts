@@ -6,21 +6,21 @@ import {
 } from '@ionic/angular/standalone';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ModalController, ToastController } from '@ionic/angular';
-import { ProductsService } from '../../../core/services/products.service';
-import { ProductTypesService } from '../../../core/services/product-types.service';
-import { ImagePickerComponent } from '../../shared/image-picker/image-picker.component';
+import { ProductsService } from '../../../../core/services/products.service';
+import { ProductTypesService } from '../../../../core/services/product-types.service';
+import { ImagePickerComponent } from '../../../shared/image-picker/image-picker.component';
 
 @Component({
-  standalone: true,
-  selector: 'app-product-form-modal',
-  templateUrl: './product-form.modal.html',
-  styleUrls: ['./product-form.modal.scss'],
-  imports: [
-    CommonModule, ReactiveFormsModule,
-    IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent,
-    IonList, IonItem, IonInput, IonSelect, IonSelectOption, IonToggle,
-    ImagePickerComponent
-  ]
+    standalone: true,
+    selector: 'app-product-form-modal',
+    templateUrl: './product-form.modal.html',
+    styleUrls: ['./product-form.modal.scss'],
+    imports: [
+        CommonModule, ReactiveFormsModule,
+        IonHeader, IonToolbar, IonTitle, IonButtons, IonButton, IonContent,
+        IonList, IonItem, IonInput, IonSelect, IonSelectOption, IonToggle,
+        ImagePickerComponent
+    ]
 })
 export class ProductFormModal implements OnInit {
     @Input() mode: 'create' | 'edit' = 'create';

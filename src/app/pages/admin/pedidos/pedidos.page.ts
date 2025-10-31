@@ -152,7 +152,7 @@ export class PedidosPage {
     async openDetail(o: any) {
         const modal = await this.modalCtrl.create({
             component: PedidoDetailsModal,
-            componentProps: { orderId: o.id },
+            componentProps: { orderId: o.id ,isAdmin : true },
             breakpoints: [0, 0.75, 1],
             initialBreakpoint: 0.9
         });

@@ -1,0 +1,23 @@
+.orders-list {
+    margin: 0; 
+}
+.order-card { 
+    --inner-padding-start: 12px; 
+    --inner-padding-end: 12px; 
+    --min-height: 72px; 
+}
+.order-card .grid {
+    display: grid; 
+    grid-template-columns: 150px 1fr auto; 
+    grid-template-rows: auto auto;
+    column-gap: 10px; 
+    row-gap: 4px; 
+    align-items: center; 
+    width: 100%;
+}
+.c00{grid-column:1;grid-row:1}.c01{grid-column:2;grid-row:1}.c02{grid-column:3;grid-row:1;text-align:right}
+.c10{grid-column:1;grid-row:2;color:var(--ion-color-medium);font-size:12px}
+.c11{grid-column:2;grid-row:2;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.c12{grid-column:3;grid-row:2;text-align:right;display:flex;gap:6px;align-items:center;justify-content:flex-end}
+.num{font-weight:800} .total{font-weight:800}
+@media (max-width:420px){ .order-card .grid{ grid-template-columns: 120px 1fr auto; } }

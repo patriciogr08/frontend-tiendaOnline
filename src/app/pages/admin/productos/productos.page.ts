@@ -8,7 +8,7 @@ import {
 import { addIcons } from 'ionicons';
 import { createOutline, trashOutline, addOutline } from 'ionicons/icons';
 import { ProductsService } from '../../../core/services/products.service';
-import { ProductFormModal } from './product-form.modal';
+import { ProductFormModal } from './product-form/product-form.modal';
 import { ModalController, ToastController } from '@ionic/angular';
 import { ProductTypesService } from '../../../core/services/product-types.service';
 import { debounceTime, Subject } from 'rxjs';

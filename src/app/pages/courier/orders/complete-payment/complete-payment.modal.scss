@@ -1,0 +1,8 @@
+app-image-picker img {
+    width: 400px;
+    height: 400px;
+    object-fit: cover; /* o 'contain' si no quieres recorte */
+    border-radius: 8px;
+    border: 1px solid rgba(0,0,0,.08);
+    background: #fff;
+}

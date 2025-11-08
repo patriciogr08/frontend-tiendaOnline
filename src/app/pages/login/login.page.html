@@ -1,15 +1,11 @@
-<!-- src/app/pages/login/login.page.html -->
 <ion-content class="login-bg" [fullscreen]="true">
   <div class="login-wrapper">
-    <!-- Logo / Marca -->
     <div class="brand">
-      <!-- Usa tu logo local si tienes: assets/img/logo.svg -->
-      <ion-img src="assets/img/logo.svg" alt="Logo" class="brand__img"></ion-img>
+    <ion-img src="assets/img/logo.svg" alt="Logo" class="brand__img"></ion-img>
       <h1 class="brand__title">Tienda Online</h1>
       <p class="brand__subtitle">Bienvenido de vuelta</p>
     </div>
 
-    <!-- Card de acceso -->
     <ion-card class="login-card">
       <ion-card-content>
         <form [formGroup]="form" (ngSubmit)="submit()" novalidate>

@@ -20,4 +20,9 @@
 .c11{grid-column:2;grid-row:2;min-width:0;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .c12{grid-column:3;grid-row:2;text-align:right;display:flex;gap:6px;align-items:center;justify-content:flex-end}
 .num{font-weight:800} .total{font-weight:800}
-@media (max-width:420px){ .order-card .grid{ grid-template-columns: 120px 1fr auto; } }
+
+@media (max-width:420px){ 
+    .order-card .grid{ 
+        grid-template-columns: 120px 1fr auto; 
+    } 
+}

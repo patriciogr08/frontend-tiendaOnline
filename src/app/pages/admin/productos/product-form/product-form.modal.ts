@@ -84,7 +84,9 @@ export class ProductFormModal implements OnInit {
         return true;
     }
 
-    close() { this.modalCtrl.dismiss(null, 'cancel'); }
+    close() { 
+        this.modalCtrl.dismiss(null, 'cancel'); 
+    }
 
     async save() {
         if (this.form.invalid) return;

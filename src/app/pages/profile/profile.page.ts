@@ -34,6 +34,7 @@ import { Router } from '@angular/router';
     ]
 })
 export class ProfilePage implements OnInit {
+    @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
     user = this.auth.currentUser();
 
     // Form de datos personales (PUT /me)
@@ -123,7 +124,7 @@ export class ProfilePage implements OnInit {
         const loader = await this.loading.create({ message: 'Actualizando contraseña...' });
         await loader.present();
 
-        this.profile.putPassword(this.passForm.value as any).subscribe({
+        this.profile.cangePassword(this.passForm.value as any).subscribe({
         next: async () => {
             await loader.dismiss();
             this.passForm.reset();
@@ -187,14 +188,14 @@ export class ProfilePage implements OnInit {
         await loader.present();
 
         const dto = {
-        ...this.addrForm.value,
-        linea2: this.addrForm.value.linea2 || null,
-        codigo_postal: this.addrForm.value.codigo_postal || null
+            ...this.addrForm.value,
+            linea2: this.addrForm.value.linea2 || null,
+            codigo_postal: this.addrForm.value.codigo_postal || null
         } as AddressDTO;
 
         const req = this.editingId
-        ? this.addrApi.update(this.editingId, dto)
-        : this.addrApi.create(dto);
+                    ? this.addrApi.update(this.editingId, dto)
+                    : this.addrApi.create(dto);
 
         req.subscribe({
         next: async () => {
@@ -249,8 +250,6 @@ export class ProfilePage implements OnInit {
     public typeDirection( type :string ) {
         return type.toUpperCase() == 'SHIPPING' ? 'ENVIO' : 'FACTURACIÓN'; 
     }
-
-    @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
 
     pickAvatar() {
         this.fileInput.nativeElement.click();

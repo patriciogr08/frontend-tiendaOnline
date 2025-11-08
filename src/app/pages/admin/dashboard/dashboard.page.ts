@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {
-  IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent,
-  IonButton, IonIcon
+    IonContent, IonCard, IonCardHeader, IonCardTitle, IonCardContent,
+    IonButton, IonIcon
 } from '@ionic/angular/standalone';
 import { Router } from '@angular/router';
 import { addIcons } from 'ionicons';

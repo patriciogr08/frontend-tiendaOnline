@@ -13,7 +13,6 @@ export class AddressesService {
     }
 
     create(dto: AddressDTO) {
-        // backend espera todos los campos: normaliza nullables
         const payload: AddressDTO = {
         ...dto,
         linea2: dto.linea2 ?? null,

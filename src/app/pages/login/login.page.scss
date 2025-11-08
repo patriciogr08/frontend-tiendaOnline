@@ -112,8 +112,7 @@
     margin-bottom: 8px;
 }
 
-/* Modo oscuro soportado automáticamente con variables de Ionic.
-   Si quieres acentuar, puedes añadir: */
+/* Modo oscuro soportado automáticamente con variables de Ionic. Si quieres acentuar, puedes añadir: */
 :host-context(body.dark) {
     .login-card {
         --background: rgba(18, 18, 18, 0.75);

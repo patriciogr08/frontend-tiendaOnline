@@ -186,5 +186,4 @@ export class UsuariosPage implements OnInit {
         });
         await alert.present();
     }
-
 }

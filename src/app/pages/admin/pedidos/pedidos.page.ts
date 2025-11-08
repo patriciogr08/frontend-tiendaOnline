@@ -128,6 +128,7 @@ export class PedidosPage {
     money(n: number, cur = 'USD') {
         return new Intl.NumberFormat('es-EC', { style: 'currency', currency: cur || 'USD' }).format(Number(n || 0));
     }
+    
     badgeColorEstado(e: string) {
         switch (e) {
         case 'PENDIENTE': return 'warning';

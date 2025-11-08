@@ -49,7 +49,6 @@ export class AuthService {
     logout() {
         localStorage.removeItem(this.key);
         localStorage.removeItem(this.userKey);
-        // opcional: avisar backend (no-op)
         return this.http.post('/auth/logout', {});
     }
 

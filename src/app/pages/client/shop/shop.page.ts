@@ -67,7 +67,6 @@ export class ShopPage implements OnInit {
     this.reload();
   }
 
-  // ===== Helpers de precio/oferta =====
   hasOffer(p: any) {
     return Number(p?.tiene_descuento) === 1 && (Number(p?.porcentaje) > 0 || Number(p?.descuento) > 0);
   }  
@@ -91,23 +90,26 @@ finalPrice(p: any) {
   }
 
 
-  // ===== Eventos UI =====
-  onSearch(ev: any) { this.search$.next(ev?.detail?.value ?? ''); }
+  onSearch(ev: any) { 
+    this.search$.next(ev?.detail?.value ?? ''); 
+  }
+  
   onTipoChange(ev: any) {
     this.selectedTipos = (ev?.detail?.value ?? []).slice();
     this.reload();
   }
+
   removeTipo(id: number) {
     this.selectedTipos = this.selectedTipos.filter(x => x !== id);
     this.reload();
   }
+
   clearTipos() {
     if (!this.selectedTipos.length) return;
     this.selectedTipos = [];
     this.reload();
   }
 
-  // ===== Carga de datos =====
   reload(ev?: any) {
     this.offset = 0;
     this.items = [];
@@ -123,8 +125,8 @@ finalPrice(p: any) {
       q: this.q,
       limit: this.limit,
       offset: this.offset,
-      publicado: 1,        // 👈 solo publicados
-      tipos: tiposCsv      // 👈 CSV para múltiples tipos
+      publicado: 1,       
+      tipos: tiposCsv 
     }).subscribe({
       next: (rows) => {
         const data = rows || [];

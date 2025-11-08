@@ -51,7 +51,6 @@ export class CreateRepartidorModal {
         this.api.createRepartidor(this.form.value as any).subscribe({
         next: async (user) => {
             await loader.dismiss();
-            // devolvemos el usuario creado
             this.modalCtrl.dismiss(user, 'created');
         },
         error: async (err) => {

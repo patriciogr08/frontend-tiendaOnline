@@ -3,7 +3,7 @@
 
     ion-card-content {
         display: grid;
-        grid-template-columns: 1fr 1fr; /* 2 columnas */
+        grid-template-columns: 1fr 1fr; 
         gap: 10px;
     }
 
@@ -23,7 +23,6 @@
     }
 }
 
-/* En pantallas angostas, apila 1 columna */
 @media (max-width: 520px) {
     .filters-card.grid22 ion-card-content {
         grid-template-columns: 1fr;

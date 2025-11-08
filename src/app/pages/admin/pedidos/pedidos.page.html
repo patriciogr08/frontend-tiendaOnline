@@ -4,11 +4,13 @@
             <div class="input-with-icon">
                 <ion-icon name="search-outline"></ion-icon>
                 <ion-input
-                placeholder="Buscar número, cliente, correo o teléfono"
-                [(ngModel)]="q"
-                (ionInput)="onFilterTyping()">
+                    placeholder="Buscar número, cliente, correo o teléfono"
+                    [(ngModel)]="q"
+                    (ionInput)="onFilterTyping()">
                 </ion-input>
-                <ion-button size="small" fill="clear" (click)="clearSearch()" *ngIf="q?.length">Limpiar</ion-button>
+                @if(q.length){
+                    <ion-button size="small" fill="clear" (click)="clearSearch()">Limpiar</ion-button>
+                }
             </div>
         </div>
         <div class="cell">
@@ -23,10 +25,13 @@
                 {{ e.label }}
                 </ion-select-option>
             </ion-select>
-            <div class="chips" *ngIf="estadosSel?.length">
-                <ion-badge color="medium" *ngFor="let e of estadosSel" (click)="removeEstado(e)">{{ e }}</ion-badge>
-                <ion-button size="small" fill="clear" (click)="clearEstados()">limpiar</ion-button>
-            </div>
+            @if(estadosSel.length){
+                <div class="chips" >
+                    <ion-badge color="medium" *ngFor="let e of estadosSel" (click)="removeEstado(e)">{{ e }}</ion-badge>
+                    <ion-button size="small" fill="clear" (click)="clearEstados()">limpiar</ion-button>
+                </div>
+            }
+
         </div>
         <div class="cell">
             <ion-input

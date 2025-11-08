@@ -24,14 +24,3 @@ export interface ResetDto {
     token: string; 
     password: string; 
 }
-
-export interface LoginResponse {
-    accessToken: string;
-    refreshToken?: string;
-    user: User;
-}
-
-export interface RefreshResponse {
-    accessToken: string;
-    refreshToken?: string;
-}

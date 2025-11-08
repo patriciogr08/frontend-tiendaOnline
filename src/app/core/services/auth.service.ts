@@ -33,10 +33,10 @@ export class AuthService {
 
     login(dto: { correo: string; password: string }) {
         return this.http.post<any>('/auth/login', dto).pipe(
-        tap(res => {
-            localStorage.setItem(this.key, res.accessToken);
-            localStorage.setItem(this.userKey, JSON.stringify(res.user));
-        })
+            tap(res => {
+                localStorage.setItem(this.key, res.accessToken);
+                localStorage.setItem(this.userKey, JSON.stringify(res.user));
+            })
         );
     }
 

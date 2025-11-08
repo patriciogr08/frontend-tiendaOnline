@@ -16,7 +16,7 @@ export const routes: Routes = [
       { path: 'pedidos',    data:{title:'Pedidos'},    loadComponent: () => import('./pages/admin/pedidos/pedidos.page').then(m => m.PedidosPage) },
       { path: 'productos',  data:{title:'Productos'},  loadComponent: () => import('./pages/admin/productos/productos.page').then(m => m.ProductosPage) },
       { path: 'usuarios',   data:{title:'Usuarios'},   loadComponent: () => import('./pages/admin/usuarios/usuarios.page').then(m => m.UsuariosPage) },
-      { path: 'perfil',     data:{title:'Perfil'},     loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage) },
+      { path: 'perfil',     data:{title:'Perfil'},     loadComponent: () => import('./pages/shared/profile/profile.page').then(m => m.ProfilePage) },
       { path: '', pathMatch: 'full', redirectTo: 'dashboard' }
     ]
   },
@@ -30,7 +30,7 @@ export const routes: Routes = [
       { path: 'shop',    data:{title:'Catálogo'},    loadComponent: () => import('./pages/client/shop/shop.page').then(m => m.ShopPage) },
       { path: 'cart',    data:{title:'Carrito'},     loadComponent: () => import('./pages/client/cart/cart.page').then(m => m.CartPage) },
       { path: 'orders',  data:{title:'Mis pedidos'}, loadComponent: () => import('./pages/client/orders/orders.page').then(m => m.OrdersPage) },
-      { path: 'profile', data:{title:'Perfil'},      loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage) },
+      { path: 'profile', data:{title:'Perfil'},      loadComponent: () => import('./pages/shared/profile/profile.page').then(m => m.ProfilePage) },
       { path: '', pathMatch: 'full', redirectTo: 'shop' }
     ]
   },
@@ -42,7 +42,7 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/courier/tabs/courier-tabs.page').then(m => m.CourierTabsPage),
     children: [
       { path: 'orders',  data:{title:'Asignados'}, loadComponent: () => import('./pages/courier/orders/courier-orders.page').then(m => m.CourierOrdersPage) },
-      { path: 'profile', data:{title:'Perfil'},    loadComponent: () => import('./pages/profile/profile.page').then(m => m.ProfilePage) },
+      { path: 'profile', data:{title:'Perfil'},    loadComponent: () => import('./pages/shared/profile/profile.page').then(m => m.ProfilePage) },
       { path: '', pathMatch: 'full', redirectTo: 'orders' }
     ]
   },

@@ -31,7 +31,7 @@ export class ProductFormModal implements OnInit {
 
     form = this.fb.group({
         tipo_producto_id: [null],
-        nombre: ['', [Validators.required, Validators.maxLength(200)]],
+        nombre: ['', [Validators.required, Validators.maxLength(20)]],
         descripcion: [''],
         precio: [0, [Validators.required, Validators.min(0)]],
         publicado: [false],
@@ -39,7 +39,7 @@ export class ProductFormModal implements OnInit {
         descuento: [0],
         porcentaje: [0],
     });
-
+    
     // Validación de imagen
     maxImageMB = 5;
     allowedTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif'];

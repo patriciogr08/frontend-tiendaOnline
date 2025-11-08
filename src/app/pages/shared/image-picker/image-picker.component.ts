@@ -13,7 +13,7 @@ import { imageOutline, trashOutline } from 'ionicons/icons';
 })
 export class ImagePickerComponent {
     @Input() label = 'Imagen';
-    @Input() maxMB = 3;
+    @Input() maxMB = 5;
     @Input() accept = 'image/png,image/jpeg,image/webp,image/gif';
     @Input() previewUrl: string | null = null;
     @Output() fileChange = new EventEmitter<File | null>();

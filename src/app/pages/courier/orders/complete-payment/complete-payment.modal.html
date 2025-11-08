@@ -33,7 +33,7 @@
 
         <app-image-picker
             [label]="'Seleccionar imagen'"
-            [maxMB]="2"
+            [maxMB]="5"
             [accept]="'image/png,image/jpeg,image/webp,image/gif'"
             [previewUrl]="preview || null"
             (fileChange)="setFile($event)">

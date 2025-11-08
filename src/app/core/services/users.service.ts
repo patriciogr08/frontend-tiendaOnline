@@ -17,7 +17,6 @@ export class UsersService {
         return this.http.get<AdminUser[]>('/admin/users', { params });
     }
 
-    // Crear REPARTIDOR
     createRepartidor(dto: { nombre_completo: string; correo: string; telefono?: string|null; contrasena: string; }) {
         return this.http.post<AdminUser>('/admin/users', dto);
     }

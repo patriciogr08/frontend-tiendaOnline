@@ -14,8 +14,8 @@ import {
     shieldCheckmarkOutline
 } from 'ionicons/icons';
 
-import { AuthService } from '../../core/services/auth.service';
-import { ProfileService } from '../../core/services/profile.service';
+import { AuthService } from '../../../core/services/auth.service';
+import { ProfileService } from '../../../core/services/profile.service';
 import { AddressDTO } from 'src/app/core/types/address.type';
 import { AddressesService } from 'src/app/core/services/addresses.service';
 import { Router } from '@angular/router';
